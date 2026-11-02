@@ -16,6 +16,7 @@ var pulses: Array[MeshInstance3D] = []
 var throw_rng := RandomNumberGenerator.new()
 var collision_log: Array[Dictionary] = []
 var launch_vectors: Array[Vector3] = []
+var _target_values: Array[int] = []
 var _values: Array[int] = [1,1]
 var _accent := Color("56dce8")
 var _skip := false
@@ -261,19 +262,24 @@ func _resolve() -> void:
 func read_top_value(index: int) -> int:
 	return dice[index].top_value()
 
-func play(accent: Color, fast: bool = false, launch_seed: int = -1) -> Array[int]:
+func play(accent: Color, fast: bool = false, launch_seed: int = -1, target_values: Array = []) -> Array[int]:
 	if playing: return []
 	playing = true
 	_skip = false
 	was_skipped = false
 	_fast = fast
+	_target_values.clear()
+	for v in target_values:
+		_target_values.append(int(v))
 	if launch_seed >= 0: throw_rng.seed = launch_seed
 	_prepare(accent)
 	sound_cue.emit("dice_charge")
 	_launch()
 	while not _resolved and _quiet_time < .2:
 		await get_tree().process_frame
-	if not _resolved: _resolve()
+	if not _resolved:
+		_apply_target_orientations()
+		_resolve()
 	result_ready.emit(_values.duplicate())
 	var hold := 0.0
 	while hold < (.12 if fast else .6) and not _skip:
@@ -283,14 +289,21 @@ func play(accent: Color, fast: bool = false, launch_seed: int = -1) -> Array[int
 	playing = false
 	return _values.duplicate()
 
+func _apply_target_orientations() -> void:
+	if _target_values.size() >= 2:
+		for index in range(2):
+			var val: int = _target_values[index]
+			if val >= 1 and val <= 6:
+				dice[index].basis = Basis.from_euler(LANDING_ROTATIONS[val - 1])
+
 func skip() -> void:
 	if not playing or _skip: return
 	_skip = true
 	was_skipped = true
 	if not _resolved:
-		# Explicit skip policy: independent uniform dice, with no settlement wait.
+		# Explicit skip policy: use server-mandated target values if present, else uniform random.
 		for index in range(2):
-			var value := throw_rng.randi_range(1,6)
+			var value := _target_values[index] if _target_values.size() > index and _target_values[index] >= 1 and _target_values[index] <= 6 else throw_rng.randi_range(1,6)
 			dice[index].freeze = true
 			dice[index].position = Vector3(-1.15 if index == 0 else 1.15,.676,0)
 			dice[index].basis = Basis.from_euler(LANDING_ROTATIONS[value-1])
