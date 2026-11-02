@@ -10,7 +10,6 @@ var _lines: Array = []
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	TranslationServer.set_locale("es")
 
 
 func set_pins(items: Array) -> void:

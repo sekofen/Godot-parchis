@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Localization="*res://src/localization/Localization.gd"
 MatchConfig="*res://src/data/MatchConfig.gd"
 
 [display]

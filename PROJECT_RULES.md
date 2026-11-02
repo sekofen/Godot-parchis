@@ -10,6 +10,14 @@ Use actual controls, drawn shapes, or image assets for icons and state indicator
 Do not use Unicode glyphs as substitute UI graphics. Ordinary text and punctuation
 remain text.
 
+## Language and localization
+
+Use English for code, comments, diagnostics, and documentation. Keep UI text in
+`src/localization/translations.csv` with complete `en`/`es` entries and matching
+placeholders. Use keys in scenes and `tr()` in scripts; commit regenerated
+`.translation` files. Refresh generated text on `NOTIFICATION_TRANSLATION_CHANGED`
+without changing player names, selections, or match state.
+
 ## Implemented in the local game
 
 - Individual play, two dice, 2–4 named players, distinct selected colors, four pawns

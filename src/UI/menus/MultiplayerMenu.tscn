@@ -51,13 +51,13 @@ theme_override_constants/separation = 4
 layout_mode = 2
 theme_override_colors/font_color = Color(0.411765, 0.894118, 0.921569, 1)
 theme_override_font_sizes/font_size = 24
-text = "MULTIJUGADOR"
+text = "MULTI_TITLE"
 
 [node name="Subtitle" type="Label" parent="Center/CardPanel/Margin/Content/HeaderBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.384314, 0.74902, 0.788235, 1)
 theme_override_font_sizes/font_size = 13
-text = "Conéctate con otros jugadores mediante red o código de invitación"
+text = "MULTI_SUBTITLE"
 
 [node name="Separator" type="HSeparator" parent="Center/CardPanel/Margin/Content"]
 layout_mode = 2
@@ -72,21 +72,21 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 mouse_default_cursor_shape = 2
-text = "Crear Sala (Host)"
+text = "MULTI_CREATE"
 
 [node name="BtnChooseJoin" type="Button" parent="Center/CardPanel/Margin/Content/ModeSelectView"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 mouse_default_cursor_shape = 2
-text = "Unirse a Sala (Join)"
+text = "MULTI_JOIN"
 
 [node name="BtnBackToMain" type="Button" parent="Center/CardPanel/Margin/Content/ModeSelectView"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 mouse_default_cursor_shape = 2
-text = "Volver al Menú Principal"
+text = "UI_MAIN_MENU"
 
 [node name="HostView" type="VBoxContainer" parent="Center/CardPanel/Margin/Content"]
 unique_name_in_owner = true
@@ -101,7 +101,7 @@ theme_override_constants/separation = 10
 [node name="CodeLabel" type="Label" parent="Center/CardPanel/Margin/Content/HostView/CodeRow"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Código de Invitación:"
+text = "MULTI_CODE_LABEL"
 
 [node name="RoomCodeDisplay" type="LineEdit" parent="Center/CardPanel/Margin/Content/HostView/CodeRow"]
 unique_name_in_owner = true
@@ -118,7 +118,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(90, 36)
 layout_mode = 2
 mouse_default_cursor_shape = 2
-text = "Copiar"
+text = "MULTI_COPY"
 
 [node name="CountRow" type="HBoxContainer" parent="Center/CardPanel/Margin/Content/HostView"]
 layout_mode = 2
@@ -127,7 +127,7 @@ theme_override_constants/separation = 14
 [node name="HostCountLabel" type="Label" parent="Center/CardPanel/Margin/Content/HostView/CountRow"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Capacidad de la Sala:"
+text = "MULTI_CAPACITY"
 
 [node name="HostPlayerCount" type="OptionButton" parent="Center/CardPanel/Margin/Content/HostView/CountRow"]
 unique_name_in_owner = true
@@ -139,7 +139,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.45, 0.65, 0.75, 1)
 theme_override_font_sizes/font_size = 12
-text = "ℹ️ Como anfitrión, solo puedes configurar tu nombre. Los demás asientos esperan conexión remota."
+text = "MULTI_HOST_NOTE"
 
 [node name="HostSlotsScroll" type="ScrollContainer" parent="Center/CardPanel/Margin/Content/HostView"]
 custom_minimum_size = Vector2(0, 160)
@@ -163,14 +163,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 12
-text = "➕ Simular Conexión de Jugador Remoto"
+text = "MULTI_SIMULATE"
 
 [node name="HostStatusLabel" type="Label" parent="Center/CardPanel/Margin/Content/HostView"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.384314, 0.74902, 0.788235, 1)
 theme_override_font_sizes/font_size = 13
-text = "Esperando jugadores... (1/4 conectados)"
+text = "MULTI_WAIT_INITIAL"
 
 [node name="HostButtons" type="HBoxContainer" parent="Center/CardPanel/Margin/Content/HostView"]
 layout_mode = 2
@@ -181,7 +181,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 42)
 layout_mode = 2
 mouse_default_cursor_shape = 2
-text = "Atrás"
+text = "UI_BACK"
 
 [node name="BtnHostStart" type="Button" parent="Center/CardPanel/Margin/Content/HostView/HostButtons"]
 unique_name_in_owner = true
@@ -189,7 +189,7 @@ custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Esperando jugadores... / Iniciar"
+text = "MULTI_START"
 
 [node name="JoinView" type="VBoxContainer" parent="Center/CardPanel/Margin/Content"]
 unique_name_in_owner = true
@@ -205,14 +205,14 @@ theme_override_constants/separation = 12
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Tu Nombre:"
+text = "MULTI_YOUR_NAME"
 
 [node name="JoinNameInput" type="LineEdit" parent="Center/CardPanel/Margin/Content/JoinView/NameRow"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Invitado"
+text = "MULTI_GUEST"
 
 [node name="FactionRow" type="HBoxContainer" parent="Center/CardPanel/Margin/Content/JoinView"]
 layout_mode = 2
@@ -222,7 +222,7 @@ theme_override_constants/separation = 12
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Facción Preferida:"
+text = "MULTI_FACTION"
 
 [node name="JoinFactionOption" type="OptionButton" parent="Center/CardPanel/Margin/Content/JoinView/FactionRow"]
 unique_name_in_owner = true
@@ -238,14 +238,14 @@ theme_override_constants/separation = 12
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Código de Sala:"
+text = "MULTI_ROOM_CODE"
 
 [node name="JoinCodeInput" type="LineEdit" parent="Center/CardPanel/Margin/Content/JoinView/CodeRow"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "Ej. PARQUE-4821"
+placeholder_text = "MULTI_CODE_PLACEHOLDER"
 
 [node name="JoinStatusLabel" type="Label" parent="Center/CardPanel/Margin/Content/JoinView"]
 unique_name_in_owner = true
@@ -264,7 +264,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 42)
 layout_mode = 2
 mouse_default_cursor_shape = 2
-text = "Atrás"
+text = "UI_BACK"
 
 [node name="BtnConnect" type="Button" parent="Center/CardPanel/Margin/Content/JoinView/JoinButtons"]
 unique_name_in_owner = true
@@ -272,4 +272,4 @@ custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Conectar"
+text = "MULTI_CONNECT"

@@ -37,7 +37,7 @@ script = ExtResource("1_qi6f1")
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 29
-text = "THE WAY HOME"
+text = "VICTORY_TITLE"
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -52,7 +52,7 @@ autowrap_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 17
-text = "All four crew have crossed the Loom. Their journey lives on."
+text = "VICTORY_BODY"
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -60,4 +60,4 @@ autowrap_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Play again · return to lobby"
+text = "VICTORY_REMATCH"

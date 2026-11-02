@@ -1,5 +1,5 @@
 extends SceneTree
-const Palette := preload("res://AudioPalette.gd")
+const Palette := preload("res://tools/AudioPalette.gd")
 func _initialize() -> void:
 	for key in Palette.DURATIONS:
 		var sound := Palette.render(key)

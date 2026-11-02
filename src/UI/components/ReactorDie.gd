@@ -9,7 +9,7 @@ func display(number: int, usable: bool, color: Color) -> void:
 	available = usable
 	accent = color if usable else Color("577080")
 	text = ""
-	tooltip_text = "%d%s" % [number, " · available" if usable else " · spent"] if number > 0 else "No roll yet"
+	tooltip_text = (tr("DIE_AVAILABLE") if usable else tr("DIE_SPENT")) % number if number > 0 else tr("DIE_NO_ROLL")
 	queue_redraw()
 
 func _draw() -> void:
@@ -28,3 +28,7 @@ func _die_style() -> StyleBoxFlat:
 	style.set_border_width_all(1)
 	style.set_corner_radius_all(8)
 	return style
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready():
+		tooltip_text = (tr("DIE_AVAILABLE") if available else tr("DIE_SPENT")) % value if value > 0 else tr("DIE_NO_ROLL")

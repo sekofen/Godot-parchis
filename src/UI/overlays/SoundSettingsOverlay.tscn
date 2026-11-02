@@ -31,13 +31,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.41960785, 0.8784314, 0.9254902, 1)
-text = "SOUND & PORTRAITS"
+text = "SOUND_TITLE"
 
 [node name="EffectsLabel" type="Label" parent="Center/Panel/Content" unique_id=1496767692]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 17
-text = "Game effects"
+text = "SOUND_EFFECTS"
 autowrap_mode = 3
 
 [node name="EffectsVolume" type="HSlider" parent="Center/Panel/Content" unique_id=1545928420]
@@ -51,7 +51,7 @@ step = 0.01
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 17
-text = "Dialogue chimes & text ticks"
+text = "SOUND_DIALOGUE"
 autowrap_mode = 3
 
 [node name="DialogueVolume" type="HSlider" parent="Center/Panel/Content" unique_id=624529649]
@@ -63,20 +63,20 @@ step = 0.01
 
 [node name="MuteAudio" type="CheckBox" parent="Center/Panel/Content" unique_id=910070128]
 layout_mode = 2
-text = "Mute all sounds"
+text = "SOUND_MUTE"
 
 [node name="PortraitMotion" type="CheckBox" parent="Center/Panel/Content" unique_id=796868765]
 layout_mode = 2
-text = "Animate dialogue portraits"
+text = "SOUND_PORTRAITS"
 
 [node name="PreviewButton" type="Button" parent="Center/Panel/Content" unique_id=1517465948]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Preview effects"
+text = "SOUND_PREVIEW"
 
 [node name="DoneButton" type="Button" parent="Center/Panel/Content" unique_id=956893375]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Done"
+text = "UI_DONE"

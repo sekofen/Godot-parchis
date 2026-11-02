@@ -1,125 +1,290 @@
 keys,en,es
-FACTION_0_NAME,"Crimson Vanguard","Vanguardia Carmesí"
-FACTION_0_SHORT_NAME,"Vanguard","Vanguardia"
-FACTION_0_TITLE,"COMMANDER","COMANDANTE"
-FACTION_0_MOTTO,"No one gets left behind.","Nadie se queda atrás."
-FACTION_0_DESC,"Veteran protectors who turn discipline into a promise: bring every crew member home.","Protectores veteranos que convierten la disciplina en una promesa: traer a cada tripulante a casa."
+FACTION_0_NAME,Crimson Vanguard,Vanguardia Carmesí
+FACTION_0_SHORT_NAME,Vanguard,Vanguardia
+FACTION_0_TITLE,COMMANDER,COMANDANTE
+FACTION_0_MOTTO,No one gets left behind.,Nadie se queda atrás.
+FACTION_0_DESC,Veteran protectors who turn discipline into a promise: bring every crew member home.,Protectores veteranos que convierten la disciplina en una promesa: traer a cada tripulante a casa.
 FACTION_0_WELCOME,"Commander Iria Voss, Crimson Vanguard. We hold the line, and we bring our people home. {player}, your opening roll secured the first turn. Let me prepare you for deployment.","Comandante Iria Voss, Vanguardia Carmesí. Mantenemos la línea y traemos a los nuestros a casa. {player}, tu tirada inicial aseguró el primer turno. Déjame prepararte para el despliegue."
 FACTION_0_WELCOME_OBSERVER,"Commander Iria Voss, Crimson Vanguard. Welcome aboard, {player}. {first} secured the opening turn. Before your deployment, let me prepare you to bring every crew member home.","Comandante Iria Voss, Vanguardia Carmesí. Bienvenido a bordo, {player}. {first} aseguró el primer turno. Antes de tu despliegue, déjame prepararte para traer a cada tripulante a casa."
-FACTION_0_JAIL,"Our crew is confined to the launch bay. Roll doubles — matching dice, like 2 + 2 — to release one pawn. You have three attempts while all your unfinished pawns are jailed. Select a pawn, then EXIT. Once it reaches the salida, roll again for movement.","Nuestra tripulación está confinada en la bahía de lanzamiento. Lanza dobles —dados iguales, como 2 + 2— para liberar una ficha. Tienes tres intentos mientras todas tus fichas no terminadas sigan encerradas. Selecciona una ficha y pulsa SALIR. Una vez en la salida, vuelve a lanzar para moverte."
+FACTION_0_JAIL,"Our crew is confined to the launch bay. Roll doubles — matching dice, like 2 + 2 — to release one pawn. You have three attempts while all your unfinished pawns are jailed. Select a pawn, then LAUNCH. Once it reaches the salida, roll again for movement.","Nuestra tripulación está confinada en la bahía de lanzamiento. Lanza dobles —dados iguales, como 2 + 2— para liberar una ficha. Tienes tres intentos mientras todas tus fichas no terminadas sigan encerradas. Selecciona una ficha y pulsa SALIR. Una vez en la salida, vuelve a lanzar para moverte."
 FACTION_0_MOVEMENT,"Choose your route before you commit. Cyan pawns can move; select one to focus the camera. Green +steps markers show legal landings. Spend either whole die, use them on different pawns, or combine both on one pawn.","Elige tu ruta antes de comprometerte. Las fichas cian pueden moverse; selecciona una para enfocar la cámara. Los marcadores verdes de +pasos muestran casillas legales. Usa cualquier dado entero, úsalos en fichas distintas o combina ambos en una."
 FACTION_0_CAPTURE,"Protect your crew. Landing on a rival sends it back to jail, except on a seguro or salida. Your own colored home lane is protected too. Watch the border markings; safe ground is worth holding.","Protege a tu tripulación. Caer sobre un rival lo envía de regreso a la cárcel, excepto en seguro o salida. Tu propio carril final de color también está protegido. Vigila las marcas; vale la pena mantener el terreno seguro."
-FACTION_0_FINISH,"Bring all four pawns to the core with exact rolls to win. Doubles keep your turn; three consecutive pairs send one chosen unfinished pawn directly to the goal. You have your orders. Bring everyone home.","Lleva las cuatro fichas al núcleo con tiradas exactas para ganar. Los dobles mantienen tu turno; tres pares consecutivos envían una ficha pendiente elegida directo a la meta. Tienes tus órdenes. Trae a todos a casa."
-FACTION_0_EXPEDITION,"We held the evacuation line at Morrow until the last transport left. Then the Loom failed behind us. Those four sentinels kept their promise to a thousand families. Now we keep ours to them. No one gets left behind.","Mantuvimos la línea de evacuación en Morrow hasta que partió el último transporte. Luego el Loom falló a nuestras espaldas. Esos cuatro centinelas cumplieron su promesa a mil familias. Ahora nosotros cumplimos la nuestra. Nadie se queda atrás."
-FACTION_0_REACT_LAUNCH,"One of ours is clear. Keep moving.","Uno de los nuestros está libre. Sigan avanzando."
-FACTION_0_REACT_CAPTURE,"Rival recalled. The route is open.","Rival retirado. La ruta está libre."
-FACTION_0_REACT_SHIELD,"Hold here. The shield will cover you.","Mantengan la posición. El escudo los cubrirá."
-FACTION_0_REACT_FINISH,"Another promise kept. Welcome home.","Otra promesa cumplida. Bienvenidos a casa."
-FACTION_0_REACT_BONUS,"Express gate open. Bring one of ours through.","Compuerta exprés abierta. Traigan a uno de los nuestros."
-FACTION_1_NAME,"Viridian Accord","Acuerdo Viridio"
-FACTION_1_SHORT_NAME,"Accord","Acuerdo"
-FACTION_1_TITLE,"AMBASSADOR","EMBAJADOR"
-FACTION_1_MOTTO,"Every path returns to its roots.","Todo camino regresa a sus raíces."
+FACTION_0_FINISH,Bring all four pawns to the core with exact rolls to win. Doubles keep your turn; three consecutive pairs send one chosen unfinished pawn directly to the goal. You have your orders. Bring everyone home.,Lleva las cuatro fichas al núcleo con tiradas exactas para ganar. Los dobles mantienen tu turno; tres pares consecutivos envían una ficha pendiente elegida directo a la meta. Tienes tus órdenes. Trae a todos a casa.
+FACTION_0_EXPEDITION,We held the evacuation line at Morrow until the last transport left. Then the Loom failed behind us. Those four sentinels kept their promise to a thousand families. Now we keep ours to them. No one gets left behind.,Mantuvimos la línea de evacuación en Morrow hasta que partió el último transporte. Luego el Loom falló a nuestras espaldas. Esos cuatro centinelas cumplieron su promesa a mil familias. Ahora nosotros cumplimos la nuestra. Nadie se queda atrás.
+FACTION_0_REACT_LAUNCH,One of ours is clear. Keep moving.,Uno de los nuestros está libre. Sigan avanzando.
+FACTION_0_REACT_CAPTURE,Rival recalled. The route is open.,Rival retirado. La ruta está libre.
+FACTION_0_REACT_SHIELD,Hold here. The shield will cover you.,Mantengan la posición. El escudo los cubrirá.
+FACTION_0_REACT_FINISH,Another promise kept. Welcome home.,Otra promesa cumplida. Bienvenidos a casa.
+FACTION_0_REACT_BONUS,Express gate open. Bring one of ours through.,Compuerta exprés abierta. Traigan a uno de los nuestros.
+FACTION_1_NAME,Viridian Accord,Acuerdo Viridio
+FACTION_1_SHORT_NAME,Accord,Acuerdo
+FACTION_1_TITLE,AMBASSADOR,EMBAJADOR
+FACTION_1_MOTTO,Every path returns to its roots.,Todo camino regresa a sus raíces.
 FACTION_1_DESC,"Living-world navigators who value patience, shelter, and the bonds that guide a scattered crew home.","Navegantes de mundos vivos que valoran la paciencia, el refugio y los lazos que guían a una tripulación dispersa a casa."
 FACTION_1_WELCOME,"I am Sael, voice of the Viridian Accord. Even among the stars, every journey begins with a single root. {player}, the opening dice gave you the first turn. Allow me to show you the path.","Soy Sael, voz del Acuerdo Viridio. Incluso entre las estrellas, cada viaje comienza con una sola raíz. {player}, los dados iniciales te dieron el primer turno. Permíteme mostrarte el camino."
 FACTION_1_WELCOME_OBSERVER,"I am Sael, voice of the Viridian Accord. Welcome, {player}. The opening dice gave {first} the first turn. While that journey begins, allow me to show you the path your travelers will follow.","Soy Sael, voz del Acuerdo Viridio. Bienvenido, {player}. Los dados iniciales dieron a {first} el primer turno. Mientras comienza ese viaje, permíteme mostrarte el camino que seguirán tus viajeros."
-FACTION_1_JAIL,"Your four travelers wait in the launch bay. To open its gates, roll doubles: two matching dice. You have three attempts while all unfinished pawns are jailed. Choose a pawn and its EXIT marker. After release, roll again to begin its journey.","Tus cuatro viajeros esperan en la bahía de lanzamiento. Para abrir sus puertas, saca dobles: dos dados iguales. Tienes tres intentos mientras todas las fichas pendientes sigan presas. Elige una ficha y su casilla de SALIDA. Tras liberarla, lanza de nuevo para iniciar su viaje."
+FACTION_1_JAIL,"Your four travelers wait in the launch bay. To open its gates, roll doubles: two matching dice. You have three attempts while all unfinished pawns are jailed. Choose a pawn and its LAUNCH marker. After release, roll again to begin its journey.","Tus cuatro viajeros esperan en la bahía de lanzamiento. Para abrir sus puertas, saca dobles: dos dados iguales. Tienes tres intentos mientras todas las fichas pendientes sigan presas. Elige una ficha y su marcador SALIR. Tras liberarla, lanza de nuevo para iniciar su viaje."
 FACTION_1_MOVEMENT,"The cyan glow shows which travelers can advance. Choose one, then a green +steps destination. Each die is a whole step allowance: spend them separately, share them between pawns, or combine both for one longer move.","El brillo cian muestra qué viajeros pueden avanzar. Elige uno y luego un destino verde de +pasos. Cada dado es una asignación completa: gástalos por separado, repártelos entre fichas o combínalos para un avance mayor."
 FACTION_1_CAPTURE,"Some ground offers shelter. Seguros, salidas, and your own colored home lane protect a pawn from capture. On any other shared space, landing on a rival returns it to jail. Seek shelter when the path grows dangerous.","Cierto terreno brinda refugio. Los seguros, salidas y tu propio carril de llegada protegen a una ficha de ser capturada. En cualquier otro espacio compartido, caer sobre un rival lo envía a la cárcel. Busca refugio cuando el camino se vuelva peligroso."
 FACTION_1_FINISH,"Guide all four travelers to the core, using exact rolls for the final step. Doubles let your turn continue. Three consecutive pairs bring one chosen unfinished pawn straight to the goal. May every path bring your crew home.","Guía a los cuatro viajeros al núcleo, usando tiradas exactas en el paso final. Los dobles permiten continuar tu turno. Tres pares consecutivos llevan una ficha pendiente directamente a la meta. Que cada camino traiga a tu tripulación a casa."
 FACTION_1_EXPEDITION,"Our seed wardens carry the last living roots of a world we could not save. The Loom once connected a thousand gardens. If we bring these four travelers home, one of those gardens can grow again.","Nuestros guardianes de semillas llevan las últimas raíces vivas de un mundo que no pudimos salvar. El Loom una vez conectó mil jardines. Si traemos a estos cuatro viajeros a casa, uno de esos jardines florecerá de nuevo."
-FACTION_1_REACT_LAUNCH,"A root takes hold among the stars.","Una raíz echa brotes entre las estrellas."
-FACTION_1_REACT_CAPTURE,"Their journey bends back. Ours continues.","Su viaje retrocede. El nuestro continúa."
-FACTION_1_REACT_SHIELD,"Safe ground. Let the path breathe.","Terreno seguro. Dejemos que el camino respire."
-FACTION_1_REACT_FINISH,"One more seed reaches the garden.","Una semilla más llega al jardín."
-FACTION_1_REACT_BONUS,"The Loom offers a shorter path.","El Loom nos ofrece un atajo."
-FACTION_2_NAME,"Azure Continuum","Continuo Azur"
-FACTION_2_SHORT_NAME,"Continuum","Continuo"
-FACTION_2_TITLE,"NAVIGATOR","NAVEGANTE"
-FACTION_2_MOTTO,"Every possibility has a path.","Cada posibilidad tiene un camino."
-FACTION_2_DESC,"Synthetic explorers who map uncertain futures and find a way through impossible odds.","Exploradores sintéticos que mapean futuros inciertos y hallan rutas ante probabilidades imposibles."
+FACTION_1_REACT_LAUNCH,A root takes hold among the stars.,Una raíz echa brotes entre las estrellas.
+FACTION_1_REACT_CAPTURE,Their journey bends back. Ours continues.,Su viaje retrocede. El nuestro continúa.
+FACTION_1_REACT_SHIELD,Safe ground. Let the path breathe.,Terreno seguro. Dejemos que el camino respire.
+FACTION_1_REACT_FINISH,One more seed reaches the garden.,Una semilla más llega al jardín.
+FACTION_1_REACT_BONUS,The Loom offers a shorter path.,El Loom nos ofrece un atajo.
+FACTION_2_NAME,Azure Continuum,Continuo Azur
+FACTION_2_SHORT_NAME,Continuum,Continuo
+FACTION_2_TITLE,NAVIGATOR,NAVEGANTE
+FACTION_2_MOTTO,Every possibility has a path.,Cada posibilidad tiene un camino.
+FACTION_2_DESC,Synthetic explorers who map uncertain futures and find a way through impossible odds.,Exploradores sintéticos que mapean futuros inciertos y hallan rutas ante probabilidades imposibles.
 FACTION_2_WELCOME,"LYRA-7 online. Azure Continuum navigation established. {player}, your opening total was highest: first turn confirmed. I have calculated the essentials. Let us turn probability into a route home.","LYRA-7 en línea. Navegación del Continuo Azur establecida. {player}, tu tirada inicial fue la más alta: primer turno confirmado. He calculado lo esencial. Convirtamos la probabilidad en una ruta a casa."
 FACTION_2_WELCOME_OBSERVER,"LYRA-7 online. Welcome, {player}. Opening contest resolved: {first} takes the first turn. Your Azure Continuum navigation is ready. Let me map the essentials before your turn arrives.","LYRA-7 en línea. Bienvenido, {player}. Ronda de apertura resuelta: {first} toma el primer turno. Tu navegación del Continuo Azur está lista. Permíteme trazar lo esencial antes de que llegue tu turno."
-FACTION_2_JAIL,"Launch condition: doubles. Both dice must match. When all unfinished pawns are jailed, you have up to three attempts. Select one pawn, then EXIT, to place it on the salida. A successful release is followed by a fresh movement roll.","Condición de lanzamiento: dobles. Ambos dados deben coincidir. Con todas las fichas presas, tienes hasta tres intentos. Selecciona una ficha y SALIR para colocarla en la salida. Una liberación exitosa permite una nueva tirada de movimiento."
+FACTION_2_JAIL,"Launch condition: doubles. Both dice must match. When all unfinished pawns are jailed, you have up to three attempts. Select one pawn, then LAUNCH, to place it on the salida. A successful release is followed by a fresh movement roll.","Condición de lanzamiento: dobles. Ambos dados deben coincidir. Con todas las fichas presas, tienes hasta tres intentos. Selecciona una ficha y SALIR para colocarla en la salida. Una liberación exitosa permite una nueva tirada de movimiento."
 FACTION_2_MOVEMENT,"Cyan indicates a movable pawn. Select it to reveal green +steps landing targets. Valid budgets are die one, die two, or their sum. Each die is spent whole. Separate dice may move separate pawns. The camera will frame your options.","El color cian indica una ficha con movimiento. Selecciónala para revelar los objetivos verdes de +pasos. Los valores válidos son el dado uno, dado dos o su suma. Cada dado se gasta entero. La cámara encuadrará tus opciones."
 FACTION_2_CAPTURE,"Protection check: seguros, salidas, and your own colored home lane prevent capture. All other shared cells are exposed. Landing on an exposed rival returns that pawn to jail. Destination analysis is advised.","Chequeo de protección: seguros, salidas y tu carril final previenen la captura. Las demás celdas compartidas están expuestas. Caer en un rival expuesto lo devuelve a la cárcel. Se sugiere análisis de destino."
 FACTION_2_FINISH,"Victory condition: four pawns at the core. Final movement must be exact. Doubles preserve your turn. Three consecutive pairs promote one chosen unfinished pawn directly to the goal. Navigation ready. Your decision, commander.","Condición de victoria: cuatro fichas en el núcleo. El movimiento final debe ser exacto. Los dobles preservan tu turno. Tres pares consecutivos promueven una ficha pendiente directo a la meta. Navegación lista. Tu decisión, comandante."
-FACTION_2_EXPEDITION,"The gate erased every route from its memory. Four prism drones still carry fragments of the original star map. Bring them through, and the Continuum can chart a way home for everyone who follows.","La puerta borró cada ruta de su memoria. Cuatro drones prisma aún portan fragmentos del mapa estelar original. Tráelos a través del portal y el Continuo trazará el camino a casa para los demás."
-FACTION_2_REACT_LAUNCH,"Launch confirmed. A new path is possible.","Lanzamiento confirmado. Una nueva ruta es posible."
-FACTION_2_REACT_CAPTURE,"Intercept confirmed. Route recalculated.","Intercepción confirmada. Ruta recalculada."
-FACTION_2_REACT_SHIELD,"Shield integrity confirmed.","Integridad del escudo confirmada."
-FACTION_2_REACT_FINISH,"Crew signal recovered beyond the gate.","Señal de tripulante recuperada más allá del portal."
-FACTION_2_REACT_BONUS,"Triple resonance. Direct extraction available.","Resonancia triple. Extracción directa disponible."
-FACTION_3_NAME,"Solar Corsairs","Corsarios Solares"
-FACTION_3_SHORT_NAME,"Corsairs","Corsarios"
-FACTION_3_TITLE,"CAPTAIN","CAPITÁN"
-FACTION_3_MOTTO,"Fortune favors a bold crew.","La fortuna favorece a una tripulación audaz."
-FACTION_3_DESC,"Free captains and daring pilots who chase bright horizons and never abandon their crew.","Capitanes libres y pilotos audaces que persiguen horizontes brillantes y nunca abandonan a su tripulación."
+FACTION_2_EXPEDITION,"The gate erased every route from its memory. Four prism drones still carry fragments of the original star map. Bring them through, and the Continuum can chart a way home for everyone who follows.",La puerta borró cada ruta de su memoria. Cuatro drones prisma aún portan fragmentos del mapa estelar original. Tráelos a través del portal y el Continuo trazará el camino a casa para los demás.
+FACTION_2_REACT_LAUNCH,Launch confirmed. A new path is possible.,Lanzamiento confirmado. Una nueva ruta es posible.
+FACTION_2_REACT_CAPTURE,Intercept confirmed. Route recalculated.,Intercepción confirmada. Ruta recalculada.
+FACTION_2_REACT_SHIELD,Shield integrity confirmed.,Integridad del escudo confirmada.
+FACTION_2_REACT_FINISH,Crew signal recovered beyond the gate.,Señal de tripulante recuperada más allá del portal.
+FACTION_2_REACT_BONUS,Triple resonance. Direct extraction available.,Resonancia triple. Extracción directa disponible.
+FACTION_3_NAME,Solar Corsairs,Corsarios Solares
+FACTION_3_SHORT_NAME,Corsairs,Corsarios
+FACTION_3_TITLE,CAPTAIN,CAPITÁN
+FACTION_3_MOTTO,Fortune favors a bold crew.,La fortuna favorece a una tripulación audaz.
+FACTION_3_DESC,Free captains and daring pilots who chase bright horizons and never abandon their crew.,Capitanes libres y pilotos audaces que persiguen horizontes brillantes y nunca abandonan a su tripulación.
 FACTION_3_WELCOME,"Captain Sol Reyes, Solar Corsairs. Nice opening roll, {player} — the first turn is yours! Before you make a glorious mess of this arena, let me share a few tricks for getting the whole crew home.","Capitán Sol Reyes, Corsarios Solares. ¡Gran tirada inicial, {player}! ¡El primer turno es tuyo! Antes de que hagas un glorioso desastre en esta arena, te daré unos trucos para traer a toda la tripulación a casa."
 FACTION_3_WELCOME_OBSERVER,"Captain Sol Reyes, Solar Corsairs. Welcome to the crew, {player}! {first} won the opening turn. We will get our chance. Until then, let me share a few tricks for getting everyone home.","Capitán Sol Reyes, Corsarios Solares. ¡Bienvenido a la tripulación, {player}! {first} ganó el primer turno. Ya llegará nuestra oportunidad. Hasta entonces, déjame compartirte unos trucos para traer a todos a casa."
-FACTION_3_JAIL,"First, we spring the crew. Roll a pair — two matching dice. You get three tries while all unfinished pawns are locked up. Pick a pawn and hit EXIT to launch it onto the salida. Then roll again; the escape roll is not your movement roll.","Primero liberamos a la tripulación. Lanza un par: dos dados iguales. Tienes tres intentos mientras todas las fichas pendientes estén encerradas. Elige una y pulsa SALIR para lanzarla a la salida. Luego tira de nuevo."
+FACTION_3_JAIL,"First, we spring the crew. Roll a pair — two matching dice. You get three tries while all unfinished pawns are locked up. Pick a pawn and hit LAUNCH to launch it onto the salida. Then roll again; the escape roll is not your movement roll.",Primero liberamos a la tripulación. Lanza un par: dos dados iguales. Tienes tres intentos mientras todas las fichas pendientes estén encerradas. Elige una y pulsa SALIR para lanzarla a la salida. Luego tira de nuevo.
 FACTION_3_MOVEMENT,"See a cyan pawn? That one can fly. Pick it, then choose a green +steps marker. Use either whole die, split the dice between two pawns, or spend both on one big move. The camera gives you a closer look before you commit.","¿Ves una ficha cian? Esa puede volar. Elígela y selecciona un marcador verde de +pasos. Usa cualquier dado entero, divídelos entre dos fichas o gasta ambos en un gran avance. La cámara te dará un mejor vistazo."
 FACTION_3_CAPTURE,"Catch a rival on an exposed space and back to jail they go. But seguros, salidas, and a pawn's own home lane are off-limits for capture. Bold is good. Knowing where you are safe is better.","Alcanza a un rival en casilla expuesta y volverá a la cárcel. Pero seguros, salidas y el carril propio están fuera de peligro. Ser audaz es bueno; saber dónde estás a salvo es aún mejor."
-FACTION_3_FINISH,"Get all four pawns to the core and the arena is yours. You need an exact roll to finish. Pairs keep you rolling; three in a row send one chosen unfinished pawn straight to the goal. Ready? Let us give fortune something to work with.","Lleva las cuatro fichas al núcleo y la arena es tuya. Necesitas un tiro exacto para terminar. Los pares te mantienen lanzando; tres seguidos envían una ficha pendiente directo a la meta. ¿Listos? Démosle a la fortuna algo con qué trabajar."
-FACTION_3_EXPEDITION,"We came looking for a legend and found a broken gate. Four skimmer pilots stayed behind to keep it alive. No contract pays enough to leave friends in stasis. We are going back for every last one.","Vinimos buscando una leyenda y encontramos un portal roto. Cuatro pilotos se quedaron atrás para mantenerlo activo. Ningún contrato paga lo suficiente para dejar amigos en estasis. Volveremos por cada uno de ellos."
-FACTION_3_REACT_LAUNCH,"Out of the bay and into the black!","¡Fuera de la bahía y directo a las estrellas!"
+FACTION_3_FINISH,Get all four pawns to the core and the arena is yours. You need an exact roll to finish. Pairs keep you rolling; three in a row send one chosen unfinished pawn straight to the goal. Ready? Let us give fortune something to work with.,Lleva las cuatro fichas al núcleo y la arena es tuya. Necesitas un tiro exacto para terminar. Los pares te mantienen lanzando; tres seguidos envían una ficha pendiente directo a la meta. ¿Listos? Démosle a la fortuna algo con qué trabajar.
+FACTION_3_EXPEDITION,We came looking for a legend and found a broken gate. Four skimmer pilots stayed behind to keep it alive. No contract pays enough to leave friends in stasis. We are going back for every last one.,Vinimos buscando una leyenda y encontramos un portal roto. Cuatro pilotos se quedaron atrás para mantenerlo activo. Ningún contrato paga lo suficiente para dejar amigos en estasis. Volveremos por cada uno de ellos.
+FACTION_3_REACT_LAUNCH,Out of the bay and into the black!,¡Fuera de la bahía y directo a las estrellas!
 FACTION_3_REACT_CAPTURE,"Back to the hangar, friend. Nothing personal.","De vuelta al hangar, amigo. Nada personal."
-FACTION_3_REACT_SHIELD,"A little shelter never hurt a bold pilot.","Un poco de refugio nunca lastimó a un piloto audaz."
-FACTION_3_REACT_FINISH,"That's one more friend coming home.","¡Ese es un amigo más que regresa a casa!"
-FACTION_3_REACT_BONUS,"Three pairs! The universe owes us a shortcut.","¡Tres pares seguidos! El universo nos debe un atajo."
-BRIEFING_TITLE_WELCOME,"WELCOME TO THE ORBITAL ARENA","BIENVENIDO A LA ARENA ORBITAL"
-BRIEFING_TITLE_JAIL,"LEAVE THE LAUNCH BAY","SALIR DE LA BAHÍA DE LANZAMIENTO"
-BRIEFING_TITLE_MOVEMENT,"CHOOSE YOUR LANDING","ELIGE TU CASILLA"
-BRIEFING_TITLE_CAPTURE,"KNOW YOUR SAFE GROUND","CONOCE TUS ZONAS SEGURAS"
-BRIEFING_TITLE_FINISH,"BRING THE CREW HOME","LLEVA LA TRIPULACIÓN A CASA"
-BRIEFING_OPENING_NOTE,"The opening roll only chooses who starts. Even opening doubles do not release a pawn.","El tiro inicial solo define quién empieza. Los dobles de apertura no liberan fichas."
-PROLOGUE_TITLE,"THE LOOM IS WAKING","EL TELAR ESTÁ DESPERTANDO"
-PROLOGUE_INTRO_BODY,"{player}, the old star gate has begun to fracture. Four of our crew remain stranded in stasis. Guide them along the orbital causeways and bring them through the Loom.\n\n{expedition}\n\n{turn_guide}","{player}, la antigua puerta estelar ha comenzado a fracturarse. Cuatro de nuestros tripulantes siguen atrapados en estasis. Guíalos por las pasarelas orbitales y tráelos a través del Loom.\n\n{expedition}\n\n{turn_guide}"
-PROLOGUE_FIRST_TURN_SELF,"You have the first turn. I will guide your first actions in the arena.","Tienes el primer turno. Te guiaré en tus primeras acciones en la arena."
-PROLOGUE_FIRST_TURN_OTHER,"{first} has the first turn. I will guide you in the arena.","{first} tiene el primer turno. Te guiaré en la arena."
-PROLOGUE_HEADER,"{name} / INCOMING TRANSMISSION","{name} / TRANSMISIÓN ENTRANTE"
-PROLOGUE_BADGE,"PROLOGUE","PRÓLOGO"
-UI_ROLL_DICE,"Roll dice","Lanzar dados"
-UI_ROLL_FIRST,"Roll for first turn","Tirar para primer turno"
-UI_ROLL_DOUBLES,"Roll for doubles","Tirar por dobles"
-UI_SETUP,"Setup","Configuración"
-UI_TOOLTIP_SETUP,"Return to crew setup","Volver a la selección de tripulación"
-UI_OVERVIEW,"Overview","Vista general"
-UI_FOCUS,"Focus","Enfocar"
-UI_VIEW_TOGGLE,"3D / Top","3D / Cenital"
-UI_OPTIONS,"Options","Opciones"
-UI_SKIP_PROLOGUE,"Skip prologue","Saltar prólogo"
-UI_CONTINUE,"Continue","Continuar"
-UI_BACK,"Back","Atrás"
-UI_BEGIN_TURN,"Begin turn","Comenzar turno"
-UI_ENTER_ARENA,"Enter arena","Entrar a la arena"
-UI_TOOLTIP_TRANSMISSION,"Click to show the full transmission","Haz clic para mostrar la transmisión completa"
-UI_SKIP_ANIMATION,"Skip animation","Saltar animación"
-UI_ROLLING,"Rolling…","Lanzando…"
-UI_EXIT_PAWN,"EXIT","SALIR"
-MENU_PROLOGUE,"Faction prologue","Prólogo de facción"
-MENU_RESTART_GUIDANCE,"Restart field guidance","Reiniciar guía de campo"
-MENU_MOVE_LIST,"Move list & crew details","Lista de movimientos y tripulación"
-MENU_COORDINATES,"Space coordinates","Coordenadas de casillas"
-MENU_CAMERA_CONTROLS,"Camera controls","Controles de cámara"
-MENU_MUTE_SOUND,"Mute sound","Silenciar sonido"
-MENU_AUDIO_SETTINGS,"Sound & portrait settings","Ajustes de sonido y retratos"
-LOBBY_TITLE,"THE LOOM  /  ASSEMBLE YOUR CREW","THE LOOM  /  REÚNE A TU TRIPULACIÓN"
-LOBBY_SUBTITLE,"A fractured star gate. Four stranded crew. Bring everyone home.\n2–4 commanders · shared screen","Una puerta estelar fracturada. Cuatro tripulantes atrapados. Tráelos a todos a casa.\n2–4 comandantes · pantalla compartida"
-LOBBY_PLAYERS_COUNT,"{count} players","{count} jugadores"
-LOBBY_PLAYER_DEFAULT,"Player {n}","Jugador {n}"
-LOBBY_PLAYER_NAME_PLACEHOLDER,"Player name","Nombre del jugador"
-LOBBY_FAST_DICE,"Quick dice animations","Animaciones rápidas de dados"
-LOBBY_START_MATCH,"Start match · roll for first turn","Iniciar partida · tirar por primer turno"
-GUIDE_CAMERA,"Wheel: zoom toward cursor. Right drag: orbit. Middle drag: pan. O: overview. G: angled / top view. Select crew to focus.","Rueda: zoom hacia el cursor. Clic derecho: rotar. Clic central: desplazar. O: vista general. G: alternar 3D/cenital. Selecciona una ficha para enfocar."
+FACTION_3_REACT_SHIELD,A little shelter never hurt a bold pilot.,Un poco de refugio nunca lastimó a un piloto audaz.
+FACTION_3_REACT_FINISH,That's one more friend coming home.,¡Ese es un amigo más que regresa a casa!
+FACTION_3_REACT_BONUS,Three pairs! The universe owes us a shortcut.,¡Tres pares seguidos! El universo nos debe un atajo.
+BRIEFING_TITLE_WELCOME,WELCOME TO THE ORBITAL ARENA,BIENVENIDO A LA ARENA ORBITAL
+BRIEFING_TITLE_JAIL,LEAVE THE LAUNCH BAY,SALIR DE LA BAHÍA DE LANZAMIENTO
+BRIEFING_TITLE_MOVEMENT,CHOOSE YOUR LANDING,ELIGE TU CASILLA
+BRIEFING_TITLE_CAPTURE,KNOW YOUR SAFE GROUND,CONOCE TUS ZONAS SEGURAS
+BRIEFING_TITLE_FINISH,BRING THE CREW HOME,LLEVA LA TRIPULACIÓN A CASA
+BRIEFING_OPENING_NOTE,The opening roll only chooses who starts. Even opening doubles do not release a pawn.,El tiro inicial solo define quién empieza. Los dobles de apertura no liberan fichas.
+PROLOGUE_TITLE,THE LOOM IS WAKING,EL TELAR ESTÁ DESPERTANDO
+PROLOGUE_INTRO_BODY,"{player}, the old star gate has begun to fracture. Four of our crew remain stranded in stasis. Guide them along the orbital causeways and bring them through the Loom.
+
+{expedition}
+
+{turn_guide}","{player}, la antigua puerta estelar ha comenzado a fracturarse. Cuatro de nuestros tripulantes siguen atrapados en estasis. Guíalos por las pasarelas orbitales y tráelos a través del Loom.
+
+{expedition}
+
+{turn_guide}"
+PROLOGUE_FIRST_TURN_SELF,You have the first turn. I will guide your first actions in the arena.,Tienes el primer turno. Te guiaré en tus primeras acciones en la arena.
+PROLOGUE_FIRST_TURN_OTHER,{first} has the first turn. I will guide you in the arena.,{first} tiene el primer turno. Te guiaré en la arena.
+PROLOGUE_HEADER,{name} / INCOMING TRANSMISSION,{name} / TRANSMISIÓN ENTRANTE
+PROLOGUE_BADGE,PROLOGUE,PRÓLOGO
+UI_ROLL_DICE,Roll dice,Lanzar dados
+UI_ROLL_FIRST,Roll for first turn,Tirar para primer turno
+UI_ROLL_DOUBLES,Roll for doubles,Tirar por dobles
+UI_SETUP,Setup,Configuración
+UI_TOOLTIP_SETUP,Return to crew setup,Volver a la selección de tripulación
+UI_OVERVIEW,Overview,Vista general
+UI_FOCUS,Focus,Enfocar
+UI_VIEW_TOGGLE,3D / Top,3D / Cenital
+UI_OPTIONS,Options,Opciones
+UI_SKIP_PROLOGUE,Skip prologue,Saltar prólogo
+UI_CONTINUE,Continue,Continuar
+UI_BACK,Back,Atrás
+UI_BEGIN_TURN,Begin turn,Comenzar turno
+UI_ENTER_ARENA,Enter arena,Entrar a la arena
+UI_TOOLTIP_TRANSMISSION,Click to show the full transmission,Haz clic para mostrar la transmisión completa
+UI_SKIP_ANIMATION,Skip animation,Saltar animación
+UI_ROLLING,Rolling…,Lanzando…
+UI_EXIT_PAWN,EXIT,SALIR
+MENU_PROLOGUE,Faction prologue,Prólogo de facción
+MENU_RESTART_GUIDANCE,Restart field guidance,Reiniciar guía de campo
+MENU_MOVE_LIST,Move list & crew details,Lista de movimientos y tripulación
+MENU_COORDINATES,Space coordinates,Coordenadas de casillas
+MENU_CAMERA_CONTROLS,Camera controls,Controles de cámara
+MENU_MUTE_SOUND,Mute sound,Silenciar sonido
+MENU_AUDIO_SETTINGS,Sound & portrait settings,Ajustes de sonido y retratos
+LOBBY_TITLE,THE LOOM  /  ASSEMBLE YOUR CREW,THE LOOM  /  REÚNE A TU TRIPULACIÓN
+LOBBY_SUBTITLE,"A fractured star gate. Four stranded crew. Bring everyone home.
+2–4 commanders · shared screen","Una puerta estelar fracturada. Cuatro tripulantes atrapados. Tráelos a todos a casa.
+2–4 comandantes · pantalla compartida"
+LOBBY_PLAYERS_COUNT,{count} players,{count} jugadores
+LOBBY_PLAYER_DEFAULT,Player {n},Jugador {n}
+LOBBY_PLAYER_NAME_PLACEHOLDER,Player name,Nombre del jugador
+LOBBY_FAST_DICE,Quick dice animations,Animaciones rápidas de dados
+LOBBY_START_MATCH,Start match · roll for first turn,Iniciar partida · tirar por primer turno
+GUIDE_CAMERA,Wheel: zoom toward cursor. Right drag: orbit. Middle drag: pan. O: overview. G: angled / top view. Select crew to focus.,Rueda: zoom hacia el cursor. Clic derecho: rotar. Clic central: desplazar. O: vista general. G: alternar 3D/cenital. Selecciona una ficha para enfocar.
 GUIDE_OPENING,"First, roll for command. The highest total takes the first turn; this roll cannot launch anyone.","Primero, tiren por el mando. El total más alto toma el primer turno; este tiro no libera fichas."
-GUIDE_JAIL,"Your crew is held in stasis. Roll a matching pair to unlock a launch. You have three attempts per turn.","Tu tripulación está en estasis. Saca un par idéntico para desbloquear la salida. Tienes tres intentos por turno."
-GUIDE_SELECT,"The illuminated crew can act. Select one to project its possible landing sites.","Las fichas iluminadas pueden actuar. Selecciona una para proyectar sus posibles casillas de destino."
-GUIDE_RELEASE,"The bay is open. Select a crew member, then the green LAUNCH marker. Launch spends both dice; roll again afterward.","La bahía está abierta. Selecciona un tripulante y luego la casilla verde de SALIDA. El despegue gasta ambos dados; luego vuelve a tirar."
-GUIDE_MOVE,"Choose a green landing marker. Its number is the distance; use either die or combine both. You must spend the whole chosen die.","Elige una casilla verde de aterrizaje. Su número indica la distancia; usa cualquier dado o combina ambos. Debes gastar el dado elegido entero."
-GUIDE_ROLL,"Roll to power the next journey. A matching pair keeps your turn after you spend the dice.","Lanza para impulsar el siguiente trayecto. Un par de dados idénticos mantiene tu turno tras gastar los dados."
-GUIDE_BONUS,"Three consecutive pairs opened the express gate. Select any unfinished crew member to send them straight home.","Tres pares consecutivos abrieron la compuerta exprés. Selecciona a cualquier tripulante pendiente para enviarlo directo a casa."
+GUIDE_JAIL,Your crew is held in stasis. Roll a matching pair to unlock a launch. You have three attempts per turn.,Tu tripulación está en estasis. Saca un par idéntico para desbloquear la salida. Tienes tres intentos por turno.
+GUIDE_SELECT,The illuminated crew can act. Select one to project its possible landing sites.,Las fichas iluminadas pueden actuar. Selecciona una para proyectar sus posibles casillas de destino.
+GUIDE_RELEASE,"The bay is open. Select a crew member, then the green LAUNCH marker. Launch spends both dice; roll again afterward.",La bahía está abierta. Selecciona un tripulante y luego el marcador verde SALIR. El despegue gasta ambos dados; luego vuelve a tirar.
+GUIDE_MOVE,Choose a green landing marker. Its number is the distance; use either die or combine both. You must spend the whole chosen die.,Elige una casilla verde de aterrizaje. Su número indica la distancia; usa cualquier dado o combina ambos. Debes gastar el dado elegido entero.
+GUIDE_ROLL,Roll to power the next journey. A matching pair keeps your turn after you spend the dice.,Lanza para impulsar el siguiente trayecto. Un par de dados idénticos mantiene tu turno tras gastar los dados.
+GUIDE_BONUS,Three consecutive pairs opened the express gate. Select any unfinished crew member to send them straight home.,Tres pares consecutivos abrieron la compuerta exprés. Selecciona a cualquier tripulante pendiente para enviarlo directo a casa.
 GUIDE_SAFE,"A shield marks protected ground. Crew here cannot be captured, including on a faction's launch space.","Un escudo marca terreno protegido. Nadie puede ser capturado aquí, incluidas las casillas de salida."
-GUIDE_CAPTURE,"Direct hit. An unshielded rival was recalled to stasis and needs a pair to launch again.","Impacto directo. Un rival desprotegido fue devuelto a estasis y necesitará un par para volver a salir."
-GUIDE_HOME,"You entered your private approach lane. You are protected here; the last jump needs an exact roll.","Entraste a tu carril privado de aproximación. Aquí estás a salvo; el salto final requiere una tirada exacta."
-GUIDE_FINISH,"One crew member made it through the Loom. Bring all four through to win.","Un tripulante cruzó el Loom con éxito. Lleva a los cuatro para ganar."
+GUIDE_CAPTURE,Direct hit. An unshielded rival was recalled to stasis and needs a pair to launch again.,Impacto directo. Un rival desprotegido fue devuelto a estasis y necesitará un par para volver a salir.
+GUIDE_HOME,You entered your private approach lane. You are protected here; the last jump needs an exact roll.,Entraste a tu carril privado de aproximación. Aquí estás a salvo; el salto final requiere una tirada exacta.
+GUIDE_FINISH,One crew member made it through the Loom. Bring all four through to win.,Un tripulante cruzó el Loom con éxito. Lleva a los cuatro para ganar.
+MAIN_TAGLINE,CYBERNETIC ARENA  /  UNIVERSITY PROJECT,ARENA CIBERNÉTICA  /  PROYECTO UNIVERSITARIO
+MAIN_LOCAL,Local match,Partida local
+MAIN_MULTIPLAYER,Multiplayer,Multijugador
+MAIN_TUTORIAL,Tutorial,Tutorial
+UI_QUIT,Quit,Salir
+MAIN_FOOTER,Godot 4.x Engine · UI Prototype,Motor Godot 4.x · Prototipo de interfaz
+OPTIONS_TITLE,OPTIONS,OPCIONES
+OPTIONS_SUBTITLE,"Audio, display, and gameplay preferences","Preferencias de audio, pantalla y juego"
+OPTIONS_AUDIO,AUDIO SETTINGS,AJUSTES DE AUDIO
+OPTIONS_MASTER,Master volume:,Volumen general:
+OPTIONS_MUSIC,Music:,Música:
+OPTIONS_SFX,Sound effects:,Efectos de sonido:
+OPTIONS_DISPLAY,DISPLAY & GAMEPLAY,PANTALLA Y JUGABILIDAD
+OPTIONS_FULLSCREEN_LABEL,Fullscreen:,Pantalla completa:
+OPTIONS_FULLSCREEN,Enable fullscreen,Activar pantalla completa
+OPTIONS_FAST_LABEL,Quick animations:,Animaciones rápidas:
+OPTIONS_FAST,Quick dice animations,Animaciones rápidas de dados
+OPTIONS_QUIT_MATCH,Leave match,Salir de la partida
+UI_MAIN_MENU,Return to main menu,Volver al menú principal
+LOCAL_TITLE,LOCAL MATCH SETUP,CONFIGURACIÓN DE PARTIDA LOCAL
+LOCAL_SUBTITLE,Choose the players and their factions before starting,Elige los jugadores y sus facciones antes de comenzar
+SETUP_PLAYER_COUNT,Number of players:,Cantidad de jugadores:
+SETUP_SEAT,Seat,Puesto
+SETUP_NAME,Player name,Nombre del jugador
+SETUP_FACTION,Faction / Color,Facción / Color
+UI_START_MATCH,Start match,Iniciar partida
+MULTI_TITLE,MULTIPLAYER,MULTIJUGADOR
+MULTI_SUBTITLE,Connect using a network or invitation code,Conéctate mediante red o código de invitación
+MULTI_CREATE,Create room (Host),Crear sala (Anfitrión)
+MULTI_JOIN,Join room,Unirse a una sala
+MULTI_CODE_LABEL,Invitation code:,Código de invitación:
+MULTI_COPY,Copy,Copiar
+MULTI_CAPACITY,Room capacity:,Capacidad de la sala:
+MULTI_HOST_NOTE,"As host, configure your own name. Other seats wait for remote connections.","Como anfitrión, configura tu nombre. Los demás puestos esperan conexiones remotas."
+MULTI_SIMULATE,Simulate remote player connection,Simular conexión de jugador remoto
+MULTI_WAIT_INITIAL,Waiting for players… (1/4 connected),Esperando jugadores… (1/4 conectados)
+MULTI_START,Start room,Iniciar sala
+MULTI_YOUR_NAME,Your name:,Tu nombre:
+MULTI_GUEST,Guest,Invitado
+MULTI_FACTION,Preferred faction:,Facción preferida:
+MULTI_ROOM_CODE,Room code:,Código de sala:
+MULTI_CODE_PLACEHOLDER,e.g. PARQUE-4821,Ej. PARQUE-4821
+MULTI_CONNECT,Connect,Conectar
+UI_TOOLTIP_MESSAGE,Click to show the full message,Haz clic para mostrar el mensaje completo
+GUIDANCE_HIDE,Hide guidance,Ocultar guía
+DICE_ROLLING_TITLE,DICE REACTOR / ROLLING,REACTOR DE DADOS / LANZANDO
+VICTORY_TITLE,THE WAY HOME,EL CAMINO A CASA
+VICTORY_BODY,All four crew have crossed the Loom. Their journey lives on.,Los cuatro tripulantes han cruzado el Loom. Su viaje continúa.
+VICTORY_REMATCH,Play again · return to lobby,Jugar de nuevo · volver a la sala
+SOUND_TITLE,SOUND & PORTRAITS,SONIDO Y RETRATOS
+SOUND_EFFECTS,Game effects,Efectos del juego
+SOUND_DIALOGUE,Dialogue chimes & text ticks,Sonidos de diálogo y texto
+SOUND_MUTE,Mute all sounds,Silenciar todos los sonidos
+SOUND_PORTRAITS,Animate dialogue portraits,Animar retratos de diálogo
+SOUND_PREVIEW,Preview effects,Probar efectos
+UI_DONE,Done,Listo
+SLOT_INITIAL_NAME,Player name,Nombre del jugador
+SLOT_HOST,HOST,ANFITRIÓN
+HUD_SUBTITLE,PARQUÉS  /  ORBITAL EXODUS,PARQUÉS  /  ÉXODO ORBITAL
+OPTIONS_LANGUAGE,Language:,Idioma:
+OPTIONS_RESUME,Continue match,Continuar partida
+LOBBY_INVALID,Enter every player's name and choose a different color for each.,Escribe el nombre de cada jugador y elige un color distinto para cada uno.
+SETUP_NAME_REQUIRED,Player %d must have a name.,El jugador %d debe tener un nombre.
+SETUP_UNIQUE_FACTIONS,Each player must have a different faction/color.,Cada jugador debe tener una facción/color diferente.
+SLOT_NAME_PLACEHOLDER,Player %d name,Nombre del jugador %d
+SLOT_DEFAULT_NAME,Player %d,Jugador %d
+SLOT_WAIT_PLACEHOLDER,Waiting for connection…,Esperando conexión…
+SLOT_WAITING,WAITING,EN ESPERA
+SLOT_CONNECTED,CONNECTED,CONECTADO
+COLOR_RED,Red,Rojo
+COLOR_GREEN,Green,Verde
+COLOR_BLUE,Blue,Azul
+COLOR_YELLOW,Yellow,Amarillo
+MULTI_HOST_NAME,Host (You),Anfitrión (Tú)
+MULTI_WAITING,Room open: waiting for players… (%d/%d connected),Sala abierta: esperando jugadores… (%d/%d conectados)
+MULTI_FULL,The room is full (%d/%d).,La sala está completa (%d/%d).
+MULTI_COPIED,Copied!,¡Copiado!
+MULTI_NICKNAME,Your nickname,Tu apodo
+MULTI_NAME_REQUIRED,Enter your player name.,Ingresa tu nombre de jugador.
+MULTI_CODE_REQUIRED,Enter a room code to connect.,Ingresa un código de sala para conectar.
+MULTI_NOT_FOUND,"Connection failed: room '%s' was not found.
+The server did not respond or the room does not exist.","Error de conexión: no se encontró la sala '%s'.
+El servidor no respondió o la sala no existe."
+MULTI_CONNECTED,Connected to room %s!,¡Conectado a la sala %s!
+MENU_GENERAL_OPTIONS,General options,Opciones generales
+HUD_AWAITING,Awaiting crew,Esperando tripulación
+HUD_SETUP_HINT,Choose players and colors to start.,Elige jugadores y colores para comenzar.
+HUD_SETUP,CREW SETUP,SELECCIÓN DE TRIPULACIÓN
+HUD_LOCAL,LOCAL MATCH,PARTIDA LOCAL
+DICE_DOUBLES_SUFFIX,  /  DOUBLES,  /  DOBLES
+DICE_STARTING_ORDER,STARTING ORDER,ORDEN DE INICIO
+DICE_REACTOR,DICE REACTOR,REACTOR DE DADOS
+HUD_OPENING_PLAYER,%s · command roll,%s · tirada inicial
+PHASE_OPENING,COMMAND ROLL,TIRADA INICIAL
+PHASE_AWAIT_ROLL,POWER THE GATE,ACTIVA EL PORTAL
+PHASE_LANDING,CHOOSE LANDING,ELIGE DESTINO
+PHASE_CREW,CHOOSE CREW,ELIGE TRIPULANTE
+PHASE_BONUS,EXPRESS EXTRACTION,EXTRACCIÓN EXPRÉS
+PHASE_GAME_OVER,CREW RECOVERED,TRIPULACIÓN RECUPERADA
+PHASE_ROLLING,ROLLING DICE,LANZANDO DADOS
+PHASE_TRANSIT,IN TRANSIT,EN TRÁNSITO
+STATUS_JAIL_TRIES,Pair required · tries left: %d,Necesitas dobles · intentos restantes: %d
+STATUS_JAIL,Pair required,Necesitas dobles
+STATUS_EXACT,Exact roll required,Necesitas una tirada exacta
+STATUS_CREW,Crew %d,Tripulante %d
+PAWN_GOAL,GOAL,META
+PAWN_JAIL,JAIL,CÁRCEL
+PAWN_READY,READY,LISTO
+PAWN_ON_BOARD,ON BOARD,EN EL TABLERO
+PAWN_DETAILS,Crew %d · %s,Tripulante %d · %s
+MOVE_RELEASE,Release to %s,Salir a %s
+MOVE_DETAILS,%s: +%d to %s,%s: +%d a %s
+MOVE_BOTH,Both,Ambos
+DEST_HOME,Home %d,Llegada %d
+DEST_CELL,Cell %d,Casilla %d
+PAWN_TOOLTIP,%s · Crew %d · %s,%s · Tripulante %d · %s
+PAWN_CAN_MOVE,ready to move,listo para moverse
+PAWN_INSPECT,click to inspect,haz clic para inspeccionar
+MOVE_LAUNCH,LAUNCH,SALIR
+CELL_INFO,CELL %d · %s,CASILLA %d · %s
+CELL_LAUNCH,LAUNCH / PROTECTED,SALIDA / PROTEGIDA
+CELL_SAFE,SAFE / PROTECTED,SEGURO / PROTEGIDO
+CELL_EXPOSED,CAPTURES ALLOWED,PERMITE CAPTURAS
+LOG_ROLL,%s rolled %d + %d,%s lanzó %d + %d
+LOG_OPENING_ROLL,%s rolled %d + %d (opening),%s lanzó %d + %d (inicio)
+LOG_RELEASE,%s · pawn %d released,%s · ficha %d liberada
+LOG_MOVE,%s · pawn %d +%d,%s · ficha %d +%d
+LOG_CAPTURE,Rival pawns captured: %d,Fichas rivales capturadas: %d
+LOG_BONUS,Three doubles · pawn %d promoted to goal,Tres dobles · ficha %d enviada a la meta
+VICTORY_WINNER,%s wins!,¡%s gana!
+GUIDANCE_TITLE,FIELD COMMS,COMUNICACIONES
+GUIDANCE_CLOSE,Close comms,Cerrar comunicaciones
+GUIDANCE_UNDERSTOOD,Understood,Entendido
+DIE_AVAILABLE,%d · available,%d · disponible
+DIE_SPENT,%d · spent,%d · usado
+DIE_NO_ROLL,No roll yet,Aún no hay tirada
+PROGRESS_TOOLTIP,%d of 4 crew home,%d de 4 tripulantes en casa
+PROGRESS_COUNT,%d/4 home,%d/4 en casa
+RULES_OPENING,Roll to determine the first player. Highest total starts.,Lanza para determinar quién empieza. Comienza el total más alto.
+RULES_THIRD_DOUBLE,Three consecutive doubles! Select any unfinished pawn to send to the goal.,¡Tres dobles consecutivos! Elige una ficha pendiente para enviarla a la meta.
+RULES_NO_LANDING_DOUBLES,"Doubles, but no legal landing. Roll again (%d/3).","Dobles, sin destino válido. Lanza de nuevo (%d/3)."
+RULES_JAIL_ATTEMPTS,No doubles. Jail-release attempts left: %d.,Sin dobles. Intentos restantes para salir de la cárcel: %d.
+RULES_NO_MOVES,No legal moves.,No hay movimientos válidos.
+RULES_SELECT,"Select a glowing pawn, then a landing space. Use each die whole, or combine both.",Elige una ficha iluminada y luego su destino. Usa cada dado entero o combina ambos.
+RULES_OPENING_PLAYER,%s: roll for starting order.,%s: lanza para definir el orden de inicio.
+RULES_TIE,Tie at %d. Tied players roll again.,Empate en %d. Los jugadores empatados lanzan de nuevo.
+RULES_STARTER,%s starts with %d. Roll doubles to leave jail.,%s empieza con %d. Lanza dobles para salir de la cárcel.
+RULES_RELEASE,Pawn released. Roll again to move.,Ficha liberada. Lanza de nuevo para moverte.
+RULES_GOAL,Pawn reached the goal!,¡La ficha llegó a la meta!
+RULES_CAPTURE,Rival pawns captured: %d!,¡Fichas rivales capturadas: %d!
+RULES_REMAINING,Use the remaining die.,Usa el dado restante.
+RULES_DOUBLE_AGAIN,Doubles: roll again (%d/3).,Dobles: lanza de nuevo (%d/3).
+RULES_BONUS,Bonus pawn reached the goal. Roll again.,La ficha elegida llegó a la meta. Lanza de nuevo.
+RULES_WINNER,%s wins! All four pawns reached the goal.,¡%s gana! Las cuatro fichas llegaron a la meta.
+RULES_NEXT_TURN,%s's turn. Roll the dice.,Turno de %s. Lanza los dados.

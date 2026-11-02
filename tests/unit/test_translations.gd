@@ -6,6 +6,9 @@ const Lore := preload("res://Factions.gd")
 func _run() -> void:
 	var factions := FactionMgr.get_all_factions()
 	check(factions.size() == 4, "Loaded four faction data resources")
+	for index in range(factions.size()):
+		check(factions[index].id == index, "Faction resources are ordered by color ID")
+		check(factions[index].resource_path.begins_with("res://src/data/factions/"), "Faction data comes from a packaged resource")
 
 	for locale in ["en", "es"]:
 		TranslationServer.set_locale(locale)

@@ -4,6 +4,11 @@ var checks := 0
 var failed := false
 
 func _initialize() -> void:
+	call_deferred("_start_isolated")
+
+func _start_isolated() -> void:
+	# Tests never depend on the user's saved language and never change it on disk.
+	TranslationServer.set_locale("en")
 	call_deferred("_run")
 
 func check(condition: bool, description: String) -> void:

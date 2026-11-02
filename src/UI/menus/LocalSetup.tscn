@@ -51,13 +51,13 @@ theme_override_constants/separation = 4
 layout_mode = 2
 theme_override_colors/font_color = Color(0.411765, 0.894118, 0.921569, 1)
 theme_override_font_sizes/font_size = 24
-text = "CONFIGURACIÓN MODO LOCAL"
+text = "LOCAL_TITLE"
 
 [node name="Subtitle" type="Label" parent="Center/CardPanel/Margin/Content/HeaderBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.384314, 0.74902, 0.788235, 1)
 theme_override_font_sizes/font_size = 13
-text = "Ajusta la cantidad de participantes y asigna facciones antes de iniciar"
+text = "LOCAL_SUBTITLE"
 
 [node name="Separator1" type="HSeparator" parent="Center/CardPanel/Margin/Content"]
 layout_mode = 2
@@ -69,7 +69,7 @@ theme_override_constants/separation = 16
 [node name="CountLabel" type="Label" parent="Center/CardPanel/Margin/Content/CountRow"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
-text = "Cantidad de Jugadores:"
+text = "SETUP_PLAYER_COUNT"
 
 [node name="PlayerCountOption" type="OptionButton" parent="Center/CardPanel/Margin/Content/CountRow"]
 unique_name_in_owner = true
@@ -86,7 +86,7 @@ custom_minimum_size = Vector2(28, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.419608, 0.611765, 0.682353, 1)
 theme_override_font_sizes/font_size = 12
-text = "Nº"
+text = "SETUP_SEAT"
 
 [node name="ColName" type="Label" parent="Center/CardPanel/Margin/Content/SlotsHeader"]
 custom_minimum_size = Vector2(160, 0)
@@ -94,7 +94,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.419608, 0.611765, 0.682353, 1)
 theme_override_font_sizes/font_size = 12
-text = "Nombre del Jugador"
+text = "SETUP_NAME"
 
 [node name="ColFaction" type="Label" parent="Center/CardPanel/Margin/Content/SlotsHeader"]
 custom_minimum_size = Vector2(180, 0)
@@ -102,7 +102,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.419608, 0.611765, 0.682353, 1)
 theme_override_font_sizes/font_size = 12
-text = "Facción / Color"
+text = "SETUP_FACTION"
 
 [node name="SlotsScroll" type="ScrollContainer" parent="Center/CardPanel/Margin/Content"]
 custom_minimum_size = Vector2(0, 180)
@@ -135,7 +135,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(140, 42)
 layout_mode = 2
 mouse_default_cursor_shape = 2
-text = "Volver"
+text = "UI_BACK"
 
 [node name="BtnStart" type="Button" parent="Center/CardPanel/Margin/Content/ButtonsRow"]
 unique_name_in_owner = true
@@ -143,5 +143,5 @@ custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Iniciar Partida"
+text = "UI_START_MATCH"
 

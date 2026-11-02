@@ -30,7 +30,7 @@ theme_override_constants/separation = 9
 layout_mode = 2
 theme_override_font_sizes/font_size = 23
 theme_override_colors/font_color = Color(0.41960785, 0.9098039, 0.9254902, 1)
-text = "DICE REACTOR / ROLLING"
+text = "DICE_ROLLING_TITLE"
 horizontal_alignment = 1
 
 [node name="ViewportContainer" type="SubViewportContainer" parent="Center/Panel/Content" unique_id=328942399]

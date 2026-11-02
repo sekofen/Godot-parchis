@@ -1,6 +1,6 @@
 extends SceneTree
 ## Actual models, shared lighting and camera: overview plus moving close-ups.
-const Unit := preload("res://UnitVisual.gd")
+const Unit := preload("res://src/pieces/PieceVisual.gd")
 const Lore := preload("res://Factions.gd")
 func _initialize() -> void: call_deferred("_capture")
 func _capture() -> void:

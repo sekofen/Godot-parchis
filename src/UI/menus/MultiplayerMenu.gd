@@ -43,6 +43,7 @@ const SIMULATED_REMOTE_NAMES: Array[String] = ["Camila_Uni", "Mateo_99", "Sara_G
 var host_slot_instances: Array[PlayerSlot] = []
 var simulated_joins_count: int = 0
 var is_host_room_open: bool = false
+var _guest_name := ""
 
 func _ready() -> void:
 	_setup_mode_buttons()
@@ -77,9 +78,8 @@ func _setup_host_view() -> void:
 	btn_copy_code.pressed.connect(_on_copy_code_pressed)
 	
 	host_player_count.clear()
-	host_player_count.add_item("2 Jugadores", 2)
-	host_player_count.add_item("3 Jugadores", 3)
-	host_player_count.add_item("4 Jugadores", 4)
+	for count in [2, 3, 4]:
+		host_player_count.add_item(tr("LOBBY_PLAYERS_COUNT").format({"count": count}), count)
 	host_player_count.select(2) # Default 4
 	host_player_count.item_selected.connect(func(_idx: int) -> void: _refresh_host_slots())
 	
@@ -101,12 +101,12 @@ func _reset_host_lobby() -> void:
 		var slot: PlayerSlot = PlayerSlotScene.instantiate()
 		host_slots_container.add_child(slot)
 		if i == 0:
-			# El anfitrión solo puede cambiar su propio nombre y facción
-			slot.configure(0, "Anfitrión (Tú)", DEFAULT_COLORS[0])
-			slot.set_role_tag("HOST", true)
+			# The host can only edit their own name and faction.
+			slot.configure(0, "", DEFAULT_COLORS[0], "MULTI_HOST_NAME")
+			slot.set_role_tag("SLOT_HOST", true)
 			slot.set_editable(true)
 		else:
-			# Los demás puestos esperan conexión remota y NO pueden ser modificados por el host
+			# Other seats wait for remote connections and cannot be edited by the host.
 			slot.configure(i, "", DEFAULT_COLORS[i])
 			slot.set_waiting_state()
 		host_slot_instances.append(slot)
@@ -124,12 +124,12 @@ func _refresh_host_slots() -> void:
 		if i > 0 and slot.visible and not slot.is_waiting_connection:
 			connected_count += 1
 	
-	host_status_label.text = "🟢 Sala activa: Esperando jugadores... (%d/%d conectados)" % [connected_count, total_count]
+	host_status_label.text = tr("MULTI_WAITING") % [connected_count, total_count]
 
 func _on_simulate_remote_player_connected() -> void:
 	var total_capacity := host_player_count.get_selected_id()
 	
-	# Buscar el siguiente asiento en espera dentro de la capacidad
+	# Find the next waiting seat within the room capacity.
 	var next_slot: PlayerSlot = null
 	for i in range(1, total_capacity):
 		if host_slot_instances[i].is_waiting_connection:
@@ -137,7 +137,7 @@ func _on_simulate_remote_player_connected() -> void:
 			break
 	
 	if next_slot == null:
-		host_status_label.text = "⚠️ La sala ya está completa (%d/%d)." % [total_capacity, total_capacity]
+		host_status_label.text = tr("MULTI_FULL") % [total_capacity, total_capacity]
 		btn_simulate_player.disabled = true
 		return
 	
@@ -145,13 +145,13 @@ func _on_simulate_remote_player_connected() -> void:
 	var remote_faction := DEFAULT_COLORS[next_slot.slot_index % DEFAULT_COLORS.size()]
 	simulated_joins_count += 1
 	
-	# El anfitrión recibe el nombre y facción enviados por el usuario conectado
+	# Receive the remote player name and faction.
 	next_slot.receive_remote_player(remote_name, remote_faction)
-	print("[Multiplayer] 👤 Jugador remoto conectado: '%s' al asiento %d con facción %d" % [remote_name, next_slot.slot_index + 1, remote_faction])
+	print("[Multiplayer] Simulated remote player: '%s', seat %d, faction %d" % [remote_name, next_slot.slot_index + 1, remote_faction])
 	
 	_refresh_host_slots()
 	
-	# Verificar si quedan asientos libres
+	# Check for remaining seats.
 	var has_free := false
 	for i in range(1, total_capacity):
 		if host_slot_instances[i].is_waiting_connection:
@@ -161,25 +161,16 @@ func _on_simulate_remote_player_connected() -> void:
 
 func _on_copy_code_pressed() -> void:
 	DisplayServer.clipboard_set(room_code_display.text)
-	btn_copy_code.text = "¡Copiado!"
+	btn_copy_code.text = tr("MULTI_COPIED")
 	get_tree().create_timer(1.8).timeout.connect(func() -> void:
 		if is_instance_valid(btn_copy_code):
-			btn_copy_code.text = "Copiar"
+			btn_copy_code.text = tr("MULTI_COPY")
 	)
-	print("[Multiplayer] Código de sala copiado al portapapeles: %s" % room_code_display.text)
+	print("[Multiplayer] Room code copied to clipboard: %s" % room_code_display.text)
 
 func _on_host_start_pressed() -> void:
 	var total_count: int = host_player_count.get_selected_id()
-	print("==================================================")
-	print("[Multiplayer] 🌐 HOST INICIANDO SALA MULTIJUGADOR")
-	print("  -> Código de invitación: %s" % room_code_display.text)
-	print("  -> Capacidad de sala: %d" % total_count)
-	for i in range(total_count):
-		var data := host_slot_instances[i].get_player_data()
-		var estado := "Conectado" if data.is_connected else "Esperando conexión"
-		print("     - Asiento %d: %s | Estado: %s | Facción ID: %d" % [i + 1, data.name, estado, data.faction_id])
-	print("  -> Servidor local iniciado. ¡Esperando partida!")
-	print("==================================================")
+	print("[Multiplayer] Starting simulated room %s with capacity %d" % [room_code_display.text, total_count])
 	host_started.emit({
 		"code": room_code_display.text,
 		"player_count": total_count
@@ -187,18 +178,13 @@ func _on_host_start_pressed() -> void:
 
 # ----------------- Join View -----------------
 func _setup_join_view() -> void:
-	join_name_input.text = "Invitado"
-	join_name_input.placeholder_text = "Tu apodo"
+	_guest_name = tr("MULTI_GUEST")
+	join_name_input.text = _guest_name
+	join_name_input.placeholder_text = tr("MULTI_NICKNAME")
 	
 	join_faction_option.clear()
-	var factions := [
-		"Crimson Vanguard (Rojo)",
-		"Viridian Accord (Verde)",
-		"Azure Continuum (Azul)",
-		"Solar Corsairs (Amarillo)"
-	]
-	for i in range(factions.size()):
-		join_faction_option.add_item(factions[i], i)
+	for i in range(4):
+		join_faction_option.add_item(PlayerSlot.faction_label(i), i)
 	join_faction_option.select(1) # Default green
 	
 	btn_join_back.pressed.connect(func() -> void:
@@ -212,28 +198,22 @@ func _on_connect_pressed() -> void:
 	var player_name := join_name_input.text.strip_edges()
 	
 	if player_name.is_empty():
-		_show_join_error("⚠️ Debes ingresar tu nombre de jugador.")
+		_show_join_error(tr("MULTI_NAME_REQUIRED"))
 		return
 	if code.is_empty():
-		_show_join_error("⚠️ Debes ingresar un código de sala para conectar.")
+		_show_join_error(tr("MULTI_CODE_REQUIRED"))
 		return
 	
-	# Comportamiento por defecto: Como no hay backend aún, indica error de conexión
-	# si la sala no existe o no se encuentra en línea.
+	# Without a backend, only the locally simulated room can be found.
 	if not is_host_room_open or code.to_upper() != SIMULATED_ROOM_CODE:
-		_show_join_error("❌ Error de conexión: No se encontró la sala '%s'.\n(Sin respuesta del backend o sala inexistente)." % code)
-		print("[Multiplayer] ❌ Error de conexión: No se encontró la sala '%s'. Backend no disponible." % code)
+		_show_join_error(tr("MULTI_NOT_FOUND") % code)
+		print("[Multiplayer] Room '%s' was not found. Backend unavailable." % code)
 		return
 	
-	# Caso de éxito simulado únicamente si coincide con la sala host abierta localmente:
-	join_status_label.text = "✅ ¡Conectado con éxito a la sala %s!" % code
+	# Simulate success only for the locally open host room.
+	join_status_label.text = tr("MULTI_CONNECTED") % code
 	join_status_label.set("theme_override_colors/font_color", Color(0.4, 0.95, 0.55, 1.0))
-	print("==================================================")
-	print("[Multiplayer] 🔗 CONEXIÓN MULTIJUGADOR EXITOSA")
-	print("  -> Conectado a sala: %s" % code)
-	print("  -> Nombre transmitido: %s" % player_name)
-	print("  -> Facción transmitida: %s" % join_faction_option.get_item_text(join_faction_option.selected))
-	print("==================================================")
+	print("[Multiplayer] Simulated connection to room %s for %s" % [code, player_name])
 	
 	join_requested.emit(code, {
 		"name": player_name,
@@ -243,3 +223,17 @@ func _on_connect_pressed() -> void:
 func _show_join_error(message: String) -> void:
 	join_status_label.text = message
 	join_status_label.set("theme_override_colors/font_color", Color(1.0, 0.4, 0.45, 1.0))
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready():
+		for index in range(host_player_count.item_count):
+			host_player_count.set_item_text(index, tr("LOBBY_PLAYERS_COUNT").format({"count": host_player_count.get_item_id(index)}))
+		for index in range(join_faction_option.item_count):
+			join_faction_option.set_item_text(index, PlayerSlot.faction_label(index))
+		join_name_input.placeholder_text = tr("MULTI_NICKNAME")
+		if join_name_input.text == _guest_name:
+			_guest_name = tr("MULTI_GUEST")
+			join_name_input.text = _guest_name
+		btn_copy_code.text = tr("MULTI_COPY")
+		join_status_label.text = ""
+		_refresh_host_slots()

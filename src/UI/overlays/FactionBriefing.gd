@@ -17,6 +17,8 @@ var next_button: Button
 var back_button: Button
 var _accent := Color.WHITE
 var _opens_match := true
+var _player_name := ""
+var _opening_player_name := ""
 var emblem: TextureRect
 var _reveal: Tween
 var reveal: Node
@@ -98,32 +100,24 @@ func _ready() -> void:
 	var footer := HBoxContainer.new()
 	footer.add_theme_constant_override("separation", 12)
 	box.add_child(footer)
-	var skip := _button(footer, tr("UI_SKIP_PROLOGUE"), finish)
+	var skip := _button(footer, "UI_SKIP_PROLOGUE", finish)
 	skip.name = "SkipBriefing"
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	footer.add_child(spacer)
-	back_button = _button(footer, tr("UI_BACK"), previous_page)
+	back_button = _button(footer, "UI_BACK", previous_page)
 	back_button.name = "PreviousPage"
 	next_button = _button(footer, tr("UI_CONTINUE"), next_page)
 	next_button.name = "NextPage"
 	hide()
 
 func present(viewer_faction: int, player_name: String, opening_player_name: String = "", opens_match: bool = true) -> void:
+	_player_name = player_name
+	_opening_player_name = opening_player_name
 	_opens_match = opens_match
 	faction_id = viewer_faction
 	page_index = 0
-	var faction := Lore.profile(faction_id)
-	_accent = faction.color
-	emblem.texture = load(str(faction.emblem))
-	var turn_guide: String = tr("PROLOGUE_FIRST_TURN_SELF") if opens_match else tr("PROLOGUE_FIRST_TURN_OTHER").replace("{first}", opening_player_name)
-	var intro_text := tr("PROLOGUE_INTRO_BODY").replace("{player}", player_name).replace("{expedition}", Lore.expedition(faction_id)).replace("{turn_guide}", turn_guide)
-	pages = [{"title": tr("PROLOGUE_TITLE"), "text": intro_text}]
-	faction_name.text = tr("PROLOGUE_HEADER").replace("{name}", str(faction.name).to_upper())
-	faction_name.add_theme_color_override("font_color", _accent)
-	speaker.text = "%s %s" % [str(faction.title).capitalize(), faction.character]
-	speaker.add_theme_color_override("font_color", _accent)
-	motto.text = faction.motto
+	_refresh_content()
 	portrait.set_character(faction_id, "resolve")
 	_update_page()
 	show()
@@ -136,6 +130,19 @@ func present(viewer_faction: int, player_name: String, opening_player_name: Stri
 	_reveal = create_tween().set_parallel()
 	_reveal.tween_property(portrait, "modulate:a", 1.0, .6)
 
+
+func _refresh_content() -> void:
+	var faction := Lore.profile(faction_id)
+	_accent = faction.color
+	emblem.texture = load(str(faction.emblem))
+	var turn_guide: String = tr("PROLOGUE_FIRST_TURN_SELF") if _opens_match else tr("PROLOGUE_FIRST_TURN_OTHER").replace("{first}", _opening_player_name)
+	var intro_text := tr("PROLOGUE_INTRO_BODY").replace("{player}", _player_name).replace("{expedition}", Lore.expedition(faction_id)).replace("{turn_guide}", turn_guide)
+	pages = [{"title": tr("PROLOGUE_TITLE"), "text": intro_text}]
+	faction_name.text = tr("PROLOGUE_HEADER").replace("{name}", str(faction.name).to_upper())
+	faction_name.add_theme_color_override("font_color", _accent)
+	speaker.text = "%s %s" % [str(faction.title).capitalize(), faction.character]
+	speaker.add_theme_color_override("font_color", _accent)
+	motto.text = faction.motto
 
 func _update_page() -> void:
 	page_title.text = pages[page_index].title
@@ -204,3 +211,11 @@ func _style(background: Color, border: Color) -> StyleBoxFlat:
 func _process(_delta: float) -> void:
 	if is_instance_valid(reveal) and is_instance_valid(portrait):
 		portrait.speaking = visible and reveal.revealing
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready() and faction_id >= 0:
+		_refresh_content()
+		_update_page()
+		dialogue.tooltip_text = tr("UI_TOOLTIP_TRANSMISSION")
+		if visible:
+			reveal.begin(dialogue, dialogue.text, 140)

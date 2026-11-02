@@ -51,22 +51,38 @@ theme_override_constants/separation = 4
 layout_mode = 2
 theme_override_colors/font_color = Color(0.411765, 0.894118, 0.921569, 1)
 theme_override_font_sizes/font_size = 24
-text = "OPCIONES"
+text = "OPTIONS_TITLE"
 
 [node name="Subtitle" type="Label" parent="Center/CardPanel/Margin/Content/HeaderBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.384314, 0.74902, 0.788235, 1)
 theme_override_font_sizes/font_size = 13
-text = "Ajustes del sistema de sonido, gráficos y preferencias de juego"
+text = "OPTIONS_SUBTITLE"
 
 [node name="Separator1" type="HSeparator" parent="Center/CardPanel/Margin/Content"]
 layout_mode = 2
+
+[node name="LanguageRow" type="HBoxContainer" parent="Center/CardPanel/Margin/Content"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="LanguageLabel" type="Label" parent="Center/CardPanel/Margin/Content/LanguageRow"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "OPTIONS_LANGUAGE"
+
+[node name="LanguageOption" type="OptionButton" parent="Center/CardPanel/Margin/Content/LanguageRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
 
 [node name="AudioTitle" type="Label" parent="Center/CardPanel/Margin/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.419608, 0.611765, 0.682353, 1)
 theme_override_font_sizes/font_size = 13
-text = "AJUSTES DE AUDIO"
+text = "OPTIONS_AUDIO"
 
 [node name="MasterRow" type="HBoxContainer" parent="Center/CardPanel/Margin/Content"]
 layout_mode = 2
@@ -76,7 +92,7 @@ theme_override_constants/separation = 14
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Volumen General:"
+text = "OPTIONS_MASTER"
 
 [node name="MasterSlider" type="HSlider" parent="Center/CardPanel/Margin/Content/MasterRow"]
 unique_name_in_owner = true
@@ -105,7 +121,7 @@ theme_override_constants/separation = 14
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Música:"
+text = "OPTIONS_MUSIC"
 
 [node name="MusicSlider" type="HSlider" parent="Center/CardPanel/Margin/Content/MusicRow"]
 unique_name_in_owner = true
@@ -134,7 +150,7 @@ theme_override_constants/separation = 14
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Efectos de Sonido:"
+text = "OPTIONS_SFX"
 
 [node name="SFXSlider" type="HSlider" parent="Center/CardPanel/Margin/Content/SFXRow"]
 unique_name_in_owner = true
@@ -162,7 +178,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0.419608, 0.611765, 0.682353, 1)
 theme_override_font_sizes/font_size = 13
-text = "PANTALLA Y JUGABILIDAD"
+text = "OPTIONS_DISPLAY"
 
 [node name="FullscreenRow" type="HBoxContainer" parent="Center/CardPanel/Margin/Content"]
 layout_mode = 2
@@ -172,14 +188,14 @@ theme_override_constants/separation = 14
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Pantalla Completa:"
+text = "OPTIONS_FULLSCREEN_LABEL"
 
 [node name="FullscreenCheck" type="CheckBox" parent="Center/CardPanel/Margin/Content/FullscreenRow"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Activar modo pantalla completa"
+text = "OPTIONS_FULLSCREEN"
 
 [node name="FastAnimRow" type="HBoxContainer" parent="Center/CardPanel/Margin/Content"]
 layout_mode = 2
@@ -189,14 +205,14 @@ theme_override_constants/separation = 14
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Animaciones Rápidas:"
+text = "OPTIONS_FAST_LABEL"
 
 [node name="FastAnimCheck" type="CheckBox" parent="Center/CardPanel/Margin/Content/FastAnimRow"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Tirada de dados y turnos rápidos"
+text = "OPTIONS_FAST"
 
 [node name="Separator3" type="HSeparator" parent="Center/CardPanel/Margin/Content"]
 layout_mode = 2
@@ -213,7 +229,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(1, 0.45, 0.5, 1)
-text = "Salir de la Partida"
+text = "OPTIONS_QUIT_MATCH"
 
 [node name="BtnBack" type="Button" parent="Center/CardPanel/Margin/Content/ButtonsRow"]
 unique_name_in_owner = true
@@ -221,5 +237,5 @@ custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-text = "Volver al Menú Principal"
+text = "UI_MAIN_MENU"
 

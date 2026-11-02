@@ -11,6 +11,7 @@ offset_left = -304.0
 offset_top = 16.0
 offset_right = -16.0
 offset_bottom = -42.0
+grow_horizontal = 0
 
 [node name="Scroll" type="ScrollContainer" parent="." unique_id=954536171]
 layout_mode = 2
@@ -30,7 +31,7 @@ text = "T H E  L O O M"
 layout_mode = 2
 theme_override_font_sizes/font_size = 11
 theme_override_colors/font_color = Color(0.38431373, 0.7490196, 0.7882353, 1)
-text = "PARQUÉS  /  ORBITAL EXODUS"
+text = "HUD_SUBTITLE"
 
 [node name="FactionContact" type="PanelContainer" parent="Scroll/Content" unique_id=2122447817]
 layout_mode = 2
@@ -55,15 +56,17 @@ size_flags_horizontal = 3
 [node name="FactionHeading" type="Label" parent="Scroll/Content/FactionContact/GuidanceBox/ContactRow/ContactText" unique_id=1935286985]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
+autowrap_mode = 3
 
 [node name="FactionSpeaker" type="Label" parent="Scroll/Content/FactionContact/GuidanceBox/ContactRow/ContactText" unique_id=523047698]
 layout_mode = 2
 theme_override_font_sizes/font_size = 17
+autowrap_mode = 3
 
 [node name="FactionMessage" type="Label" parent="Scroll/Content/FactionContact/GuidanceBox" unique_id=3669526]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Click to show the full message"
+tooltip_text = "UI_TOOLTIP_MESSAGE"
 mouse_filter = 0
 theme_override_font_sizes/font_size = 15
 theme_override_colors/font_color = Color(0.7882353, 0.8627451, 0.90588236, 1)
@@ -74,7 +77,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 12
-text = "Hide guidance"
+text = "GUIDANCE_HIDE"
 
 [node name="Roster" type="VBoxContainer" parent="Scroll/Content" unique_id=395237129]
 layout_mode = 2
@@ -95,6 +98,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 theme_override_colors/font_color = Color(1, 0.8117647, 0.34509805, 1)
+autowrap_mode = 3
 
 [node name="DiceRow" type="HBoxContainer" parent="Scroll/Content" unique_id=1978358989]
 layout_mode = 2
@@ -122,7 +126,7 @@ theme_override_font_sizes/font_size = 17
 theme_override_colors/font_color = Color(0.7607843, 0.8509804, 0.89411765, 1)
 autowrap_mode = 3
 
-[node name="Actions" type="HBoxContainer" parent="Scroll/Content" unique_id=706660339]
+[node name="Actions" type="HFlowContainer" parent="Scroll/Content" unique_id=706660339]
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -153,7 +157,7 @@ theme_override_constants/separation = 6
 [node name="Separator2" type="HSeparator" parent="Scroll/Content" unique_id=1076212948]
 layout_mode = 2
 
-[node name="CameraRow" type="HBoxContainer" parent="Scroll/Content" unique_id=186371462]
+[node name="CameraRow" type="HFlowContainer" parent="Scroll/Content" unique_id=186371462]
 layout_mode = 2
 size_flags_horizontal = 3
 

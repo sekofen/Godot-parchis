@@ -1,5 +1,5 @@
 extends "res://tests/support/test_case.gd"
-const Unit := preload("res://UnitVisual.gd")
+const Unit := preload("res://src/pieces/PieceVisual.gd")
 const Lore := preload("res://Factions.gd")
 func _run() -> void:
 	for team in range(4):

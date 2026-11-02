@@ -27,10 +27,23 @@ The four lights beneath each player's name track pawns that have reached the goa
 **Options** contains guidance, sound settings, and the optional move list.
 **Setup** returns to player selection for a new match.
 
+The interface defaults to English. **Options → Language → Español** switches to
+Spanish and saves the choice.
+
 **Camera:** wheel to zoom, middle-drag to pan, right-drag to orbit, **T** for top
 view, **G** to toggle the angle. **Overview** restores the full board.
 
-## Web export
+## Exports
+
+[Export presets](export_presets.cfg) cover Web, Windows/Linux x86-64, and Android
+ARM64 APKs, with output under `build/` and development files excluded. Distribute
+desktop executables with their accompanying `.pck`.
+
+Android needs [SDK setup](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_android.html),
+release signing, and a replacement for the placeholder ID `com.example.parques`
+before shipping. Touch controls and layouts still need device testing.
+
+### Web export
 
 Requires Python 3 and export templates matching your Godot installation.
 
@@ -51,6 +64,7 @@ python3 tools/run_tests.py              # Headless suites
 python3 tools/run_tests.py fast         # Rules and components
 python3 tools/run_tests.py integration  # Game interactions and physics
 python3 tools/run_tests.py visual       # Rendered checks; opens a window
+python3 tests/export/test_packages.py   # Inspect release data for all four presets
 ```
 
 Logs are saved under `artifacts/tests/`. Use `--timeout 120` on slower machines.

@@ -13,6 +13,7 @@ signal quit_match_pressed
 @onready var sfx_label: Label = %SFXValueLabel
 
 # Display and gameplay
+@onready var language_option: OptionButton = %LanguageOption
 @onready var fullscreen_check: CheckBox = %FullscreenCheck
 @onready var fast_anim_check: CheckBox = %FastAnimCheck
 @onready var btn_back: Button = %BtnBack
@@ -21,20 +22,18 @@ signal quit_match_pressed
 var is_in_game: bool = false
 
 func _ready() -> void:
+	_init_language_control()
 	_init_audio_controls()
 	_init_display_controls()
 	_init_gameplay_controls()
 	btn_back.pressed.connect(_on_back_pressed)
-	if btn_quit_match:
-		btn_quit_match.pressed.connect(_on_quit_match_pressed)
+	btn_quit_match.pressed.connect(_on_quit_match_pressed)
 	set_in_game_mode(is_in_game)
 
 func set_in_game_mode(in_game: bool) -> void:
 	is_in_game = in_game
-	if btn_quit_match:
-		btn_quit_match.visible = in_game
-	if btn_back:
-		btn_back.text = "Continuar Partida" if in_game else "Volver al Menú Principal"
+	btn_quit_match.visible = in_game
+	btn_back.text = tr("OPTIONS_RESUME") if in_game else tr("UI_MAIN_MENU")
 
 func _init_audio_controls() -> void:
 	# Default mock values
@@ -60,8 +59,7 @@ func _init_audio_controls() -> void:
 	)
 
 func _update_slider_label(value: float, label: Label) -> void:
-	if label:
-		label.text = "%d%%" % int(round(value * 100.0))
+	label.text = "%d%%" % int(round(value * 100.0))
 
 func _apply_bus_volume(bus_name: String, linear_value: float) -> void:
 	var bus_idx := AudioServer.get_bus_index(bus_name)
@@ -77,27 +75,39 @@ func _init_display_controls() -> void:
 func _on_fullscreen_toggled(button_pressed: bool) -> void:
 	if button_pressed:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-		print("[OptionsMenu] Modo Pantalla: Pantalla Completa activada.")
+		print("[OptionsMenu] Fullscreen enabled.")
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		print("[OptionsMenu] Modo Pantalla: Modo Ventana activado.")
+		print("[OptionsMenu] Windowed mode enabled.")
 
 func _init_gameplay_controls() -> void:
 	fast_anim_check.button_pressed = false
 	fast_anim_check.toggled.connect(func(pressed: bool) -> void:
-		print("[OptionsMenu] Animaciones Rápidas (Fast Dice): %s" % ("Activadas" if pressed else "Desactivadas"))
+		print("[OptionsMenu] Quick dice animations: %s" % ("enabled" if pressed else "disabled"))
 	)
 
 func _on_back_pressed() -> void:
-	print("[OptionsMenu] Volviendo...")
+	print("[OptionsMenu] Returning...")
 	back_pressed.emit()
 
 func _on_quit_match_pressed() -> void:
-	print("[OptionsMenu] 🚪 Saliendo de la partida actual hacia el Menú Principal...")
+	print("[OptionsMenu] Leaving match for main menu...")
 	quit_match_pressed.emit()
-	if ResourceLoader.exists("res://src/UI/menus/MenuManager.tscn"):
-		var err := get_tree().change_scene_to_file("res://src/UI/menus/MenuManager.tscn")
-		if err != OK:
-			printerr("[OptionsMenu] Error volviendo a MenuManager.tscn: ", err)
-	else:
-		printerr("[OptionsMenu] No se encontró MenuManager.tscn")
+	get_tree().change_scene_to_file("res://src/UI/menus/MenuManager.tscn")
+
+func _init_language_control() -> void:
+	# Autonyms make both choices recognizable in either language.
+	language_option.add_item("English", 0)
+	language_option.add_item("Español", 1)
+	_refresh_language_control()
+	language_option.item_selected.connect(func(index: int) -> void:
+		Localization.set_language(Localization.LANGUAGES[index])
+	)
+
+func _refresh_language_control() -> void:
+	language_option.select(Localization.LANGUAGES.find(TranslationServer.get_locale()))
+	set_in_game_mode(is_in_game)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready():
+		_refresh_language_control()

@@ -34,7 +34,7 @@ var _reaction_text := ""
 var _reaction_until := 0.0
 var _reaction_team := 0
 var sound_overlay: Control
-var options_overlay: Control
+var options_overlay: OptionsMenu
 @export var remember_audio_settings := true
 var board: Node3D
 var camera: Camera3D
@@ -50,7 +50,7 @@ var roster: VBoxContainer
 var turn_title: Label
 var status: Label
 var dice_labels: Array[Label] = []
-var actions: HBoxContainer
+var actions: Container
 var choices: VBoxContainer
 var pawn_buttons: GridContainer
 var move_overlay: Control
@@ -73,8 +73,12 @@ var _selected := -1
 var _busy := false
 var _clock := 0.0
 var _rng := RandomNumberGenerator.new()
-var _pawn_tweens: Array[Tween] = []
-var _log: Array[String] = []
+var _log: Array[Dictionary] = []
+var _generated_lobby_names: Array[String] = []
+var _dice_player_name := ""
+var _dice_opening := false
+var _displayed_dice: Array[int] = []
+var _reaction_event := ""
 var history_label: Label
 var _victory_shown := false
 var faction_briefing: Control
@@ -97,7 +101,6 @@ var _last_game_phase := "lobby"
 @export_range(-1, 3) var local_faction_id: int = -1
 
 func _ready() -> void:
-	Lore.Manager._ensure_translations()
 	board = get_node("Board")
 	camera = get_node("Camera3D")
 	_rng.randomize()
@@ -118,10 +121,9 @@ func _ready() -> void:
 	_build_ui()
 	game.changed.connect(_on_game_changed)
 	
-	var match_config: Node = get_node_or_null("/root/MatchConfig")
-	if match_config and match_config.has_pending_match():
-		var entries: Array[Dictionary] = match_config.consume_match_players()
-		if is_instance_valid(fast_dice) and match_config.pending_fast_dice:
+	if MatchConfig.has_pending_match():
+		var entries: Array[Dictionary] = MatchConfig.consume_match_players()
+		if MatchConfig.pending_fast_dice:
 			fast_dice.button_pressed = true
 		start_match_with_entries(entries)
 	else:
@@ -200,7 +202,7 @@ func _build_ui() -> void:
 	dice_labels.append(side.find_child("Die1", true, false) as Label)
 
 	status = side.find_child("Status", true, false) as Label
-	actions = side.find_child("Actions", true, false) as HBoxContainer
+	actions = side.find_child("Actions", true, false) as Container
 	roll_button = side.find_child("RollDice", true, false) as Button
 	roll_button.pressed.connect(_roll_clicked)
 	lobby_button = side.find_child("LobbyButton", true, false) as Button
@@ -225,7 +227,7 @@ func _build_ui() -> void:
 	menu.add_item(tr("MENU_CAMERA_CONTROLS"), 4)
 	menu.add_check_item(tr("MENU_MUTE_SOUND"), 5)
 	menu.add_item(tr("MENU_AUDIO_SETTINGS"), 6)
-	menu.add_item("Opciones Generales", 7)
+	menu.add_item(tr("MENU_GENERAL_OPTIONS"), 7)
 	menu.set_item_checked(menu.get_item_index(5), not audio.enabled)
 	menu.id_pressed.connect(_menu_action)
 
@@ -301,6 +303,7 @@ func _build_setup() -> void:
 	player_count.item_selected.connect(_update_setup.unbind(1))
 
 	name_inputs.clear()
+	_generated_lobby_names.clear()
 	color_inputs.clear()
 	player_rows.clear()
 	for index in range(4):
@@ -310,6 +313,7 @@ func _build_setup() -> void:
 		name_field.placeholder_text = tr("LOBBY_PLAYER_NAME_PLACEHOLDER")
 		name_field.text = tr("LOBBY_PLAYER_DEFAULT").replace("{n}", str(index + 1))
 		name_inputs.append(name_field)
+		_generated_lobby_names.append(name_field.text)
 		var color_field := row.find_child("ColorInput", true, false) as OptionButton
 		for team in range(4):
 			color_field.add_item(Lore.profile(team).name, team)
@@ -369,7 +373,7 @@ func show_lobby() -> void:
 	_clear_highlights()
 	for team in range(4):
 		for pawn in range(4):
-			var node: Node3D = board.pawn_nodes[team][pawn]
+			var node: Piece = board.pawn_nodes[team][pawn]
 			node.show()
 			node.scale = Vector3.ONE * float(board.tile_spacing)
 			node.position = board.jail_positions[team][pawn]
@@ -377,50 +381,37 @@ func show_lobby() -> void:
 		die_label.display(0, false, Color.WHITE)
 	history_label.get_parent().hide()
 	_clear_children(choices)
-	turn_title.text = "Awaiting crew"
+	turn_title.text = tr("HUD_AWAITING")
 	turn_title.add_theme_color_override("font_color", Color("e4f2fa"))
-	status.text = "Choose players and colors to start."
-	phase_badge.text = "CREW SETUP"
+	status.text = tr("HUD_SETUP_HINT")
+	phase_badge.text = tr("HUD_SETUP")
 	_clear_children(pawn_buttons)
 	roll_button.disabled = true
 	_clear_children(roster)
-	_label(roster, "LOCAL MATCH", 16, Color("6bdde5"))
+	_label(roster, tr("HUD_LOCAL"), 16, Color("6bdde5"))
 
 func _start_match() -> void:
 	var entries: Array[Dictionary] = []
 	for index in range(player_count.get_selected_id()):
 		entries.append({"name": name_inputs[index].text.strip_edges(), "color": color_inputs[index].get_selected_id()})
 	if not game.configure(entries):
-		setup_error.text = "Enter every player's name and choose a different color for each."
+		setup_error.text = tr("LOBBY_INVALID")
 		return
 	setup_overlay.hide()
 	_selected = -1
 	_refresh()
 
 func start_match_with_entries(entries: Array[Dictionary]) -> bool:
-	if entries.size() >= 2 and entries.size() <= 4:
-		for idx in range(entries.size()):
-			if idx < name_inputs.size():
-				name_inputs[idx].text = entries[idx].name
-			if idx < color_inputs.size():
-				color_inputs[idx].select(entries[idx].color)
-		if is_instance_valid(player_count):
-			for idx in range(player_count.item_count):
-				if player_count.get_item_id(idx) == entries.size():
-					player_count.select(idx)
-					break
-		_update_setup()
-	
 	if not game.configure(entries):
-		printerr("[GameController] Error configurando partida con entries: ", entries)
 		return false
-	if is_instance_valid(setup_overlay):
-		setup_overlay.hide()
+	for index in range(entries.size()):
+		name_inputs[index].text = entries[index].name
+		color_inputs[index].select(entries[index].color)
+	player_count.select(entries.size() - 2)
+	_update_setup()
+	setup_overlay.hide()
 	_selected = -1
 	_refresh()
-	print("[GameController] 🎲 Partida iniciada con éxito desde el Menú Principal con %d jugadores:" % entries.size())
-	for e in entries:
-		print("   -> Jugador: '%s' | Color/Facción: %d" % [e.name, e.color])
 	return true
 
 func _build_dice_overlay() -> void:
@@ -446,7 +437,8 @@ func _dice_animation_skipped() -> void:
 func _dice_settled(values: Array[int]) -> void:
 	var a := values[0]
 	var b := values[1]
-	dice_result.text = "%d  +  %d  =  %d%s" % [a,b,a+b,"  /  DOUBLES" if a == b else ""]
+	_displayed_dice.assign(values)
+	_update_dice_text()
 	if a == b: audio.play("doubles")
 
 func _roll_clicked() -> void:
@@ -457,7 +449,10 @@ func _roll_clicked() -> void:
 	_clear_highlights()
 	_refresh()
 	var player: Dictionary = game.players[game.current_player]
-	dice_caption.text = "%s / %s" % [player.name, "STARTING ORDER" if game.phase == "opening" else "DICE REACTOR"]
+	_dice_player_name = str(player.name)
+	_dice_opening = game.phase == "opening"
+	_displayed_dice.clear()
+	_update_dice_text()
 	dice_result.text = tr("UI_ROLLING")
 	dice_overlay.show()
 	# Numeric result appears when the cubes have settled, not before the throw.
@@ -468,7 +463,7 @@ func _roll_clicked() -> void:
 	var previous_name := str(player.name)
 	var was_opening := game.phase == "opening"
 	game.roll(a, b)
-	_add_log("%s rolled %d + %d%s" % [previous_name, a, b, " (opening)" if was_opening else ""])
+	_add_log("LOG_OPENING_ROLL" if was_opening else "LOG_ROLL", [previous_name, a, b])
 	_busy = false
 	_refresh()
 	if _selected >= 0:
@@ -502,9 +497,17 @@ func _on_game_changed() -> void:
 func _refresh() -> void:
 	if game.phase == "lobby":
 		return
+	_refresh_match_text()
+	_sync_pawns()
+	_rebuild_choices()
+	_rebuild_highlights()
+	if game.phase == "game_over" and not _victory_shown:
+		_show_victory()
+
+func _refresh_match_text() -> void:
 	var player: Dictionary = game.players[game.current_player]
 	var color: Color = board.player_colors[int(player.color)]
-	turn_title.text = "%s%s" % [player.name, " · command roll" if game.phase == "opening" else ""]
+	turn_title.text = tr("HUD_OPENING_PLAYER") % player.name if game.phase == "opening" else str(player.name)
 	turn_title.add_theme_color_override("font_color", color)
 	_update_instruction()
 	roll_button.disabled = _busy or _briefing_open() or game.phase not in ["opening", "await_roll"]
@@ -537,30 +540,19 @@ func _refresh() -> void:
 		emblem.tooltip_text = str(profile.name)
 		row.add_child(emblem)
 		var details := _vbox(row)
+		details.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		details.add_theme_constant_override("separation", 0)
 		var name_label := _label(details, str(entry.name), 15, profile.color)
 		name_label.clip_text = true
-		name_label.custom_minimum_size.x = 170
+		name_label.custom_minimum_size.x = 0
 		name_label.tooltip_text = str(entry.name)
 		_extraction_progress(details, game.finished_count(index), profile.color)
 	_update_faction_message()
-	_sync_pawns()
-	_rebuild_choices()
-	_rebuild_highlights()
-	if game.phase == "game_over" and not _victory_shown:
-		_show_victory()
 
 func _kill_pawn_tweens() -> void:
-	for tween in _pawn_tweens:
-		if tween.is_valid():
-			tween.kill()
-	_pawn_tweens.clear()
 	for team in range(4):
 		for pawn in range(4):
-			if is_instance_valid(board) and board.pawn_nodes.size() > team and board.pawn_nodes[team].size() > pawn:
-				var node = board.pawn_nodes[team][pawn]
-				if node and node.has_method("kill_movement"):
-					node.kill_movement()
+			board.pawn_nodes[team][pawn].kill_movement()
 
 func _sync_pawns() -> void:
 	_kill_pawn_tweens()
@@ -570,7 +562,7 @@ func _sync_pawns() -> void:
 			if game.players[player].color == team:
 				owner_index = player
 		for pawn in range(4):
-			var node: Node3D = board.pawn_nodes[team][pawn]
+			var node: Piece = board.pawn_nodes[team][pawn]
 			if owner_index < 0 or game.pawns[owner_index][pawn] == Rules.FINISHED:
 				node.hide()
 				continue
@@ -578,12 +570,7 @@ func _sync_pawns() -> void:
 			var target := _pawn_position(owner_index, pawn)
 			node.scale = Vector3.ONE * float(board.tile_spacing) * (1.0 if game.pawns[owner_index][pawn] == -1 else 0.73)
 			if node.position.distance_to(target) > 0.01:
-				if node.has_method("move_smooth_to"):
-					node.move_smooth_to(target, 0.3)
-				else:
-					var tween := create_tween()
-					tween.tween_property(node, "position", target, 0.3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-					_pawn_tweens.append(tween)
+				node.move_smooth_to(target, 0.3)
 
 func _position_for_progress(player: int, pawn: int, progress: int) -> Vector3:
 	var team := int(game.players[player].color)
@@ -638,7 +625,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		for pawn in range(4):
 			if game.pawns[game.current_player][pawn] == Rules.FINISHED:
 				continue
-			var node: Node3D = board.pawn_nodes[team][pawn]
+			var node: Piece = board.pawn_nodes[team][pawn]
 			var screen := camera.unproject_position(node.global_position + Vector3(0, 0.4, 0))
 			if screen.distance_to(mouse) < nearest:
 				nearest = screen.distance_to(mouse)
@@ -667,17 +654,17 @@ func _all_jailed() -> bool:
 	return true
 
 func _update_instruction() -> void:
-	phase_badge.text = {"opening": "COMMAND ROLL", "await_roll": "POWER THE GATE", "move": "CHOOSE LANDING" if _selected >= 0 else "CHOOSE CREW", "bonus": "EXPRESS EXTRACTION", "game_over": "CREW RECOVERED"}.get(game.phase, "")
+	phase_badge.text = {"opening": tr("PHASE_OPENING"), "await_roll": tr("PHASE_AWAIT_ROLL"), "move": tr("PHASE_LANDING") if _selected >= 0 else tr("PHASE_CREW"), "bonus": tr("PHASE_BONUS"), "game_over": tr("PHASE_GAME_OVER")}.get(game.phase, "")
 	status.text = ""
 	if _busy:
-		phase_badge.text = "ROLLING DICE" if dice_stage.playing else "IN TRANSIT"
+		phase_badge.text = tr("PHASE_ROLLING") if dice_stage.playing else tr("PHASE_TRANSIT")
 	elif game.phase == "await_roll" and _all_jailed():
-		status.text = "Pair required · %d tries" % game.jail_attempts
+		status.text = tr("STATUS_JAIL_TRIES") % game.jail_attempts
 	elif game.phase == "move" and _selected >= 0:
 		if _selected not in _movable_pawns():
-			status.text = "Pair required" if game.pawns[game.current_player][_selected] < 0 else "Exact roll required"
+			status.text = tr("STATUS_JAIL") if game.pawns[game.current_player][_selected] < 0 else tr("STATUS_EXACT")
 		else:
-			status.text = "Crew %d" % (_selected + 1)
+			status.text = tr("STATUS_CREW") % (_selected + 1)
 	status.visible = not status.text.is_empty()
 
 func _rebuild_choices() -> void:
@@ -689,10 +676,11 @@ func _rebuild_choices() -> void:
 	var movable := _movable_pawns()
 	for pawn in range(4):
 		var progress := int(game.pawns[game.current_player][pawn])
-		var state := "GOAL" if progress == Rules.FINISHED else ("JAIL" if progress < 0 else "READY" if pawn in movable else "ON BOARD")
-		var button := _button(pawn_buttons, "Crew %d · %s" % [pawn + 1, state], _select_pawn.bind(pawn))
+		var state := tr("PAWN_GOAL") if progress == Rules.FINISHED else (tr("PAWN_JAIL") if progress < 0 else tr("PAWN_READY") if pawn in movable else tr("PAWN_ON_BOARD"))
+		var button := _button(pawn_buttons, tr("PAWN_DETAILS") % [pawn + 1, state], _select_pawn.bind(pawn))
 		button.tooltip_text = str(board.pawn_nodes[int(game.players[game.current_player].color)][pawn].get_meta("callsign"))
 		button.name = "Pawn%d" % (pawn + 1)
+		button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.disabled = progress == Rules.FINISHED or game.phase == "game_over"
 		if pawn == _selected:
@@ -705,7 +693,7 @@ func _rebuild_choices() -> void:
 		if move.pawn != _selected:
 			continue
 		var destination := _destination_name(move.target)
-		var text := "Release to " + destination if move.kind == "release" else "%s: +%d to %s" % ["Both" if move.mask == 3 else "D%d" % (1 if move.mask == 1 else 2), move.steps, destination]
+		var text := tr("MOVE_RELEASE") % destination if move.kind == "release" else tr("MOVE_DETAILS") % [tr("MOVE_BOTH") if move.mask == 3 else "D%d" % (1 if move.mask == 1 else 2), move.steps, destination]
 		var button := _button(choices, text, _execute_move.bind(move))
 		button.add_theme_color_override("font_color", Color("b9ff75"))
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -713,10 +701,10 @@ func _rebuild_choices() -> void:
 
 func _destination_name(progress: int) -> String:
 	if progress == Rules.GOAL:
-		return "GOAL"
+		return tr("PAWN_GOAL")
 	if progress > Rules.TRACK_STEPS:
-		return "Home %d" % (progress - Rules.TRACK_STEPS)
-	return "Cell %d" % (game.circuit_index(game.current_player, progress) + 1)
+		return tr("DEST_HOME") % (progress - Rules.TRACK_STEPS)
+	return tr("DEST_CELL") % (game.circuit_index(game.current_player, progress) + 1)
 
 func _select_pawn(pawn: int) -> void:
 	if _busy or _briefing_open() or _sound_settings_open() or pawn < 0 or pawn > 3 or game.phase not in ["await_roll", "move", "bonus", "opening"]:
@@ -785,7 +773,7 @@ func _rebuild_highlights() -> void:
 		var selected := pawn == _selected
 		var color := Color("fff3a6") if selected else Color("79ffff") if can_move else Color("7a93ab")
 		var pos := _pawn_position(game.current_player, pawn)
-		pins.append({"id": "pawn_%d" % pawn, "kind": "pawn", "text": str(pawn + 1), "color": color, "world": board.to_global(pos + Vector3(0, 0.65, 0)), "tooltip": "%s · Crew %d · %s" % [board.pawn_nodes[team][pawn].get_meta("callsign"), pawn + 1, "ready to move" if can_move else "click to inspect"]})
+		pins.append({"id": "pawn_%d" % pawn, "kind": "pawn", "text": str(pawn + 1), "color": color, "world": board.to_global(pos + Vector3(0, 0.65, 0)), "tooltip": tr("PAWN_TOOLTIP") % [board.pawn_nodes[team][pawn].get_meta("callsign"), pawn + 1, tr("PAWN_CAN_MOVE") if can_move else tr("PAWN_INSPECT")]})
 		if can_move or selected:
 			_marker(pos, color, 0.46)
 			for child in board.pawn_nodes[team][pawn].find_children("*", "MeshInstance3D", true, false):
@@ -800,7 +788,7 @@ func _rebuild_highlights() -> void:
 				continue
 			var pos := _position_for_progress(game.current_player, _selected, move.target)
 			_marker(pos, Color("b9ff75"), 0.47)
-			pins.append({"id": "move_%d" % index, "kind": "move", "text": "LAUNCH" if move.kind == "release" else "+%d" % move.steps, "color": Color("b9ff75"), "world": board.to_global(pos), "tooltip": _destination_name(move.target)})
+			pins.append({"id": "move_%d" % index, "kind": "move", "text": tr("MOVE_LAUNCH") if move.kind == "release" else "+%d" % move.steps, "color": Color("b9ff75"), "world": board.to_global(pos), "tooltip": _destination_name(move.target)})
 			max_steps = maxi(max_steps, move.steps)
 		if max_steps > 0:
 			var start := int(game.pawns[game.current_player][_selected])
@@ -846,7 +834,7 @@ func _update_cell_info() -> void:
 	var local: Vector3 = board.to_local(point)
 	for index in range(board.main_path_positions.size()):
 		if Vector2(local.x, local.z).distance_to(Vector2(board.main_path_positions[index].x, board.main_path_positions[index].z)) < float(board.tile_spacing) * 0.48:
-			cell_info.text = "CELL %d%s" % [index + 1, " · SALIDA / PROTECTED" if index in board.launch_indices else " · SEGURO / PROTECTED" if index in board.safe_indices else " · CAPTURES ALLOWED"]
+			cell_info.text = tr("CELL_INFO") % [index + 1, tr("CELL_LAUNCH") if index in board.launch_indices else tr("CELL_SAFE") if index in board.safe_indices else tr("CELL_EXPOSED")]
 			return
 	cell_info.text = ""
 
@@ -865,41 +853,19 @@ func _execute_move(move: Dictionary) -> void:
 	_kill_pawn_tweens()
 	var player := game.current_player
 	var team := int(game.players[player].color)
-	var node: Node3D = board.pawn_nodes[team][int(move.pawn)]
+	var node: Piece = board.pawn_nodes[team][int(move.pawn)]
 	var color: Color = board.player_colors[team]
 	audio.play("launch" if move.kind == "release" else "travel", team)
 	effects.follow(node, color)
 	effects.burst(node.position, color)
-	if node.has_method("move_release_to"):
-		if move.kind == "release":
-			var destination := _position_for_progress(player, move.pawn, 0)
-			await node.move_release_to(destination)
-		else:
-			var start := int(game.pawns[player][int(move.pawn)])
-			var waypoints: Array[Vector3] = []
-			for progress in range(start + 1, int(move.target) + 1):
-				waypoints.append(_position_for_progress(player, move.pawn, progress))
-			var destination := _position_for_progress(player, move.pawn, move.target)
-			await node.move_steps_to(waypoints, destination)
+	if move.kind == "release":
+		await node.move_release_to(_position_for_progress(player, move.pawn, 0))
 	else:
-		node.moving = true
-		if move.kind == "release": node.play_launch()
-		var tween := create_tween()
-		if move.kind == "release":
-			var destination := _position_for_progress(player, move.pawn, 0)
-			node.face_destination(destination)
-			tween.tween_property(node, "position", (node.position + destination) * 0.5 + Vector3(0, 2.5, 0), 0.22).set_trans(Tween.TRANS_SINE)
-			tween.tween_property(node, "position", destination, 0.22).set_trans(Tween.TRANS_SINE)
-		else:
-			var start := int(game.pawns[player][int(move.pawn)])
-			for progress in range(start + 1, int(move.target) + 1):
-				var destination := _position_for_progress(player, move.pawn, progress)
-				tween.tween_callback(node.face_destination.bind(destination))
-				tween.tween_property(node, "position", destination, node.step_duration())
-			tween.tween_property(node, "position", _position_for_progress(player, move.pawn, move.target), .12).set_trans(Tween.TRANS_SINE)
-		await tween.finished
-		node.moving = false
-		node.play_arrival()
+		var start := int(game.pawns[player][int(move.pawn)])
+		var waypoints: Array[Vector3] = []
+		for progress in range(start + 1, int(move.target) + 1):
+			waypoints.append(_position_for_progress(player, move.pawn, progress))
+		await node.move_steps_to(waypoints, _position_for_progress(player, move.pawn, move.target))
 	audio.play("finish" if int(move.target) == Rules.FINISHED else "land")
 	effects.stop(node)
 	effects.burst(node.position, color)
@@ -918,9 +884,12 @@ func _execute_move(move: Dictionary) -> void:
 		audio.play("shield")
 		_guide_notice("safe")
 		_react("shield", team)
-	_add_log("%s · pawn %d %s" % [name_tag, int(move.pawn) + 1, "released" if move.kind == "release" else "+%d" % move.steps])
+	if move.kind == "release":
+		_add_log("LOG_RELEASE", [name_tag, int(move.pawn) + 1])
+	else:
+		_add_log("LOG_MOVE", [name_tag, int(move.pawn) + 1, move.steps])
 	if not game.captured.is_empty():
-		_add_log("Captured %d rival pawn(s)" % game.captured.size())
+		_add_log("LOG_CAPTURE", [game.captured.size()])
 		audio.play("capture")
 		_guide_notice("capture")
 		_react("capture", team)
@@ -935,31 +904,24 @@ func _execute_bonus(pawn: int) -> void:
 	_refresh()
 	_kill_pawn_tweens()
 	var team := int(game.players[game.current_player].color)
-	var node: Node3D = board.pawn_nodes[team][pawn]
+	var node: Piece = board.pawn_nodes[team][pawn]
 	audio.play("launch", team)
-	if node.has_method("move_bonus_to"):
-		await node.move_bonus_to(Vector3(0, 0.6, 0))
-	else:
-		node.play_launch()
-		var tween := create_tween()
-		tween.tween_property(node, "position", Vector3(0, 3, 0), 0.6).set_trans(Tween.TRANS_SINE)
-		tween.tween_property(node, "position", Vector3(0, 0.6, 0), 0.3)
-		await tween.finished
+	await node.move_bonus_to(Vector3(0, 0.6, 0))
 	effects.burst(Vector3(0, .5, 0), board.player_colors[team])
 	audio.play("finish")
 	guide.complete("bonus")
 	_react("finish", team)
 	game.claim_bonus(pawn)
-	_add_log("Three doubles · pawn %d promoted to goal" % (pawn + 1))
+	_add_log("LOG_BONUS", [pawn + 1])
 	_busy = false
 	_refresh()
 
-func _add_log(text: String) -> void:
+func _add_log(key: String, values: Array = []) -> void:
 	history_label.get_parent().visible = _details_open
-	_log.append(text)
+	_log.append({"key": key, "values": values})
 	while _log.size() > 3:
 		_log.pop_front()
-	history_label.text = "\n".join(_log)
+	_refresh_history()
 
 func _show_victory() -> void:
 	_victory_shown = true
@@ -973,19 +935,17 @@ func _show_victory() -> void:
 	var title_lbl := victory_overlay.find_child("TitleLabel", true, false) as Label
 	title_lbl.add_theme_color_override("font_color", board.player_colors[team])
 	var winner_lbl := victory_overlay.find_child("WinnerLabel", true, false) as Label
-	winner_lbl.text = "%s wins!" % game.players[game.winner].name
+	winner_lbl.text = tr("VICTORY_WINNER") % game.players[game.winner].name
 	var rematch_btn := victory_overlay.find_child("RematchButton", true, false) as Button
 	rematch_btn.pressed.connect(show_lobby)
 
 func _briefing_open() -> bool:
-	return is_instance_valid(faction_briefing) and faction_briefing.visible
+	return faction_briefing.visible
 
 func is_board_input_locked() -> bool:
-	return _busy or _briefing_open() or _options_menu_open() or (is_instance_valid(sound_overlay) and sound_overlay.visible) or (is_instance_valid(setup_overlay) and setup_overlay.visible) or (is_instance_valid(dice_overlay) and dice_overlay.visible)
+	return _busy or _briefing_open() or _options_menu_open() or sound_overlay.visible or setup_overlay.visible or dice_overlay.visible
 
 func _preview_lobby_faction(seat: int) -> void:
-	if not is_instance_valid(lobby_portrait):
-		return
 	var faction := Lore.profile(color_inputs[seat].get_selected_id())
 	lobby_portrait.set_character(int(faction.id), "calm")
 	lobby_faction_name.text = faction.name
@@ -1061,7 +1021,7 @@ func _refresh_guidance() -> void:
 	var team := _reaction_team if key == "reaction" else (_host_faction if _host_faction >= 0 else int(game.players[game.current_player].color))
 	var faction := Lore.profile(team)
 	faction_portrait.set_character(team, "resolve" if key in ["release", "bonus", "capture", "finish", "home", "reaction"] else "calm")
-	faction_heading.text = "FIELD COMMS"
+	faction_heading.text = tr("GUIDANCE_TITLE")
 	faction_heading.add_theme_color_override("font_color", faction.color)
 	faction_speaker.text = faction.character
 	faction_speaker.add_theme_font_size_override("font_size", 15)
@@ -1082,7 +1042,7 @@ func _refresh_guidance() -> void:
 			if pin.kind == "pawn" and int(str(pin.id).trim_prefix("pawn_")) in _movable_pawns() and not is_instance_valid(crew):
 				crew = control
 		guide_beacon.target = destination if is_instance_valid(destination) else crew
-	guide_dismiss.text = "Close comms" if key == "reaction" else "Understood" if key in ["safe", "capture", "home", "finish", "camera"] else "Hide guidance"
+	guide_dismiss.text = tr("GUIDANCE_CLOSE") if key == "reaction" else tr("GUIDANCE_UNDERSTOOD") if key in ["safe", "capture", "home", "finish", "camera"] else tr("GUIDANCE_HIDE")
 
 func _guide_notice(key: String) -> void:
 	if not guide.seen.has(key):
@@ -1166,30 +1126,25 @@ func _open_sound_settings() -> void:
 	sound_overlay.find_child("EffectsVolume", true, false).grab_focus()
 
 func _sound_settings_open() -> bool:
-	return is_instance_valid(sound_overlay) and sound_overlay.visible
+	return sound_overlay.visible
 
 func _build_options_menu() -> void:
 	options_overlay = OptionsMenuScene.instantiate()
 	ui.add_child(options_overlay)
-	if options_overlay.has_method("set_in_game_mode"):
-		options_overlay.set_in_game_mode(true)
+	options_overlay.set_in_game_mode(true)
 	options_overlay.back_pressed.connect(_close_options_menu)
 	options_overlay.hide()
 
 func _open_options_menu() -> void:
-	if _busy or _briefing_open() or (is_instance_valid(setup_overlay) and setup_overlay.visible):
+	if _busy or _briefing_open() or setup_overlay.visible:
 		return
-	if is_instance_valid(options_overlay):
-		options_overlay.show()
-		print("[GameController] ⚙️ Menú de opciones abierto (overlay en partida activa).")
+	options_overlay.show()
 
 func _close_options_menu() -> void:
-	if is_instance_valid(options_overlay):
-		options_overlay.hide()
-		print("[GameController] ⚙️ Menú de opciones cerrado. Partida reanudada.")
+	options_overlay.hide()
 
 func _options_menu_open() -> bool:
-	return is_instance_valid(options_overlay) and options_overlay.visible
+	return options_overlay.visible
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
@@ -1205,6 +1160,59 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 func _react(event: String, team: int) -> void:
 	_comms_id = ""
+	_reaction_event = event
 	_reaction_text = Lore.reaction(team, event)
 	_reaction_until = _clock + 5
 	_reaction_team = team
+
+func _refresh_history() -> void:
+	var lines: PackedStringArray = []
+	for entry in _log:
+		lines.append(tr(entry.key) % entry.values)
+	history_label.text = "\n".join(lines)
+
+func _update_dice_text() -> void:
+	dice_caption.text = "%s / %s" % [_dice_player_name, tr("DICE_STARTING_ORDER") if _dice_opening else tr("DICE_REACTOR")]
+	if _displayed_dice.size() == 2:
+		var a := _displayed_dice[0]
+		var b := _displayed_dice[1]
+		dice_result.text = "%d  +  %d  =  %d%s" % [a, b, a + b, tr("DICE_DOUBLES_SUFFIX") if a == b else ""]
+	else:
+		dice_result.text = tr("UI_ROLLING")
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready():
+		_refresh_translations()
+
+func _refresh_translations() -> void:
+	var menu_keys := ["MENU_PROLOGUE", "MENU_RESTART_GUIDANCE", "MENU_MOVE_LIST", "MENU_COORDINATES", "MENU_CAMERA_CONTROLS", "MENU_MUTE_SOUND", "MENU_AUDIO_SETTINGS", "MENU_GENERAL_OPTIONS"]
+	for index in range(menu_keys.size()):
+		settings.get_popup().set_item_text(index, tr(menu_keys[index]))
+	for index in range(player_count.item_count):
+		player_count.set_item_text(index, tr("LOBBY_PLAYERS_COUNT").format({"count": player_count.get_item_id(index)}))
+	for index in range(name_inputs.size()):
+		if name_inputs[index].text == _generated_lobby_names[index]:
+			_generated_lobby_names[index] = tr("LOBBY_PLAYER_DEFAULT").format({"n": index + 1})
+			name_inputs[index].text = _generated_lobby_names[index]
+		name_inputs[index].placeholder_text = tr("LOBBY_PLAYER_NAME_PLACEHOLDER")
+		for team in range(4):
+			color_inputs[index].set_item_text(team, Lore.profile(team).name)
+	if not setup_error.text.is_empty():
+		setup_error.text = tr("LOBBY_INVALID")
+	_preview_lobby_faction(0)
+	_refresh_history()
+	_update_dice_text()
+	if not _reaction_event.is_empty():
+		_reaction_text = Lore.reaction(_reaction_team, _reaction_event)
+	if game.phase == "lobby":
+		turn_title.text = tr("HUD_AWAITING")
+		status.text = tr("HUD_SETUP_HINT")
+		phase_badge.text = tr("HUD_SETUP")
+		if roster.get_child_count() > 0:
+			roster.get_child(0).text = tr("HUD_LOCAL")
+	else:
+		_refresh_match_text()
+		_rebuild_choices()
+		_rebuild_highlights()
+	if is_instance_valid(victory_overlay):
+		victory_overlay.find_child("WinnerLabel", true, false).text = tr("VICTORY_WINNER") % game.players[game.winner].name

@@ -21,23 +21,23 @@ func _ready() -> void:
 	btn_quit.pressed.connect(_on_quit_pressed)
 
 func _on_local_pressed() -> void:
-	print("[MainMenu] Navegando a Configuración Local...")
+	print("[MainMenu] Opening local setup...")
 	local_selected.emit()
 
 func _on_multiplayer_pressed() -> void:
-	print("[MainMenu] Navegando a Menú Multijugador...")
+	print("[MainMenu] Opening multiplayer menu...")
 	multiplayer_selected.emit()
 
 func _on_tutorial_pressed() -> void:
-	print("[MainMenu] Iniciando Tutorial simulado: Reglas del Parqués, salidas con pares y capturas...")
+	print("[MainMenu] Tutorial prototype selected...")
 	tutorial_selected.emit()
 
 func _on_options_pressed() -> void:
-	print("[MainMenu] Navegando a Opciones...")
+	print("[MainMenu] Opening options...")
 	options_selected.emit()
 
 func _on_quit_pressed() -> void:
-	print("[MainMenu] Saliendo del juego...")
+	print("[MainMenu] Quitting game...")
 	quit_selected.emit()
 	get_tree().quit()
 

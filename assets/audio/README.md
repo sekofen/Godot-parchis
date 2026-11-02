@@ -5,7 +5,7 @@ dice impact, launch, travel, landing, shield, capture recall, extraction, victor
 communications, text tick, turn change and doubles. No voice recordings, sampled
 third-party audio, or external sound downloads.
 
-The source is `AudioPalette.gd`. Rebuild the assets with:
+The source is `tools/AudioPalette.gd`. Rebuild the assets with:
 
 ```
 godot --headless --path . --script tools/bake_audio.gd

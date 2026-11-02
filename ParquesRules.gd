@@ -22,7 +22,13 @@ var last_roll: Array[int] = []
 var dice_remaining: Array[bool] = [false, false]
 var consecutive_doubles := 0
 var jail_attempts := 3
-var notice := ""
+var _notice_parts: Array[Dictionary] = []
+var notice: String:
+	get:
+		var parts: PackedStringArray = []
+		for part in _notice_parts:
+			parts.append(tr(part.key) % part.values)
+		return " ".join(parts)
 var captured: Array[Dictionary] = []
 var _opening_candidates: Array[int] = []
 var _opening_scores: Dictionary = {}
@@ -59,7 +65,7 @@ func configure(entries: Array[Dictionary]) -> bool:
 	_opening_cursor = 0
 	current_player = 0
 	phase = "opening"
-	notice = "Roll to determine the first player. Highest total starts."
+	_set_notice(_message("RULES_OPENING"))
 	changed.emit()
 	return true
 
@@ -80,21 +86,21 @@ func roll(a: int, b: int) -> bool:
 	if consecutive_doubles == 3:
 		phase = "bonus"
 		dice_remaining = [false, false]
-		notice = "Three consecutive doubles! Select any unfinished pawn to send to the goal."
+		_set_notice(_message("RULES_THIRD_DOUBLE"))
 	elif legal_moves().is_empty():
 		dice_remaining = [false, false]
 		if a == b:
 			phase = "await_roll"
-			notice = "Doubles, but no legal landing. Roll again (%d/3)." % consecutive_doubles
+			_set_notice(_message("RULES_NO_LANDING_DOUBLES", [consecutive_doubles]))
 		elif _all_unfinished_in_jail() and jail_attempts > 1:
 			jail_attempts -= 1
 			phase = "await_roll"
-			notice = "No doubles. %d jail-release attempt(s) left." % jail_attempts
+			_set_notice(_message("RULES_JAIL_ATTEMPTS", [jail_attempts]))
 		else:
-			_advance_turn("No legal moves.")
+			_advance_turn(_message("RULES_NO_MOVES"))
 	else:
 		phase = "move"
-		notice = "Select a glowing pawn, then a landing space. Use each die whole, or combine both."
+		_set_notice(_message("RULES_SELECT"))
 	changed.emit()
 	return true
 
@@ -103,7 +109,7 @@ func _resolve_opening(total: int) -> void:
 	_opening_cursor += 1
 	if _opening_cursor < _opening_candidates.size():
 		current_player = _opening_candidates[_opening_cursor]
-		notice = "%s: roll for starting order." % players[current_player].name
+		_set_notice(_message("RULES_OPENING_PLAYER", [players[current_player].name]))
 		return
 	var highest := -1
 	var tied: Array[int] = []
@@ -119,10 +125,10 @@ func _resolve_opening(total: int) -> void:
 		_opening_scores.clear()
 		_opening_cursor = 0
 		current_player = tied[0]
-		notice = "Tie at %d. Tied players roll again." % highest
+		_set_notice(_message("RULES_TIE", [highest]))
 	else:
 		_begin_turn(tied[0])
-		notice = "%s starts with %d. Roll doubles to leave jail." % [players[current_player].name, highest]
+		_set_notice(_message("RULES_STARTER", [players[current_player].name, highest]))
 
 func legal_moves() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
@@ -176,23 +182,23 @@ func play(pawn: int, mask: int) -> bool:
 				if circuit_index(opponent, int(pawns[opponent][rival])) == cell:
 					pawns[opponent][rival] = -1
 					captured.append({"player": opponent, "pawn": rival})
-	var action := ""
+	var action: Dictionary = {}
 	if choice.kind == "release":
-		action = "Pawn released. Roll again to move."
+		action = _message("RULES_RELEASE")
 	elif choice.target == FINISHED:
-		action = "Pawn reached the goal!"
+		action = _message("RULES_GOAL")
 	elif not captured.is_empty():
-		action = "Captured %d rival pawn(s)!" % captured.size()
+		action = _message("RULES_CAPTURE", [captured.size()])
 	if _check_win():
 		changed.emit()
 		return true
 	if not legal_moves().is_empty():
-		notice = action + " Use the remaining die."
+		_set_notice(action, _message("RULES_REMAINING"))
 	else:
 		dice_remaining = [false, false]
 		if last_roll[0] == last_roll[1]:
 			phase = "await_roll"
-			notice = action + " Doubles: roll again (%d/3)." % consecutive_doubles
+			_set_notice(action, _message("RULES_DOUBLE_AGAIN", [consecutive_doubles]))
 		else:
 			_advance_turn(action)
 	changed.emit()
@@ -205,7 +211,7 @@ func claim_bonus(pawn: int) -> bool:
 	consecutive_doubles = 0
 	if not _check_win():
 		phase = "await_roll"
-		notice = "Bonus pawn reached the goal. Roll again."
+		_set_notice(_message("RULES_BONUS"))
 	changed.emit()
 	return true
 
@@ -232,10 +238,10 @@ func _check_win() -> bool:
 	winner = current_player
 	phase = "game_over"
 	dice_remaining = [false, false]
-	notice = "%s wins! All four pawns reached the goal." % players[winner].name
+	_set_notice(_message("RULES_WINNER", [players[winner].name]))
 	return true
 
-func _advance_turn(prefix: String = "") -> void:
+func _advance_turn(prefix: Dictionary = {}) -> void:
 	# Lobby seats run around the board to the right; skip unoccupied colors.
 	var next := current_player
 	var color_id := int(players[current_player].color)
@@ -248,7 +254,7 @@ func _advance_turn(prefix: String = "") -> void:
 		if next != current_player:
 			break
 	_begin_turn(next)
-	notice = (prefix + " " if not prefix.is_empty() else "") + "%s's turn. Roll the dice." % players[current_player].name
+	_set_notice(prefix, _message("RULES_NEXT_TURN", [players[current_player].name]))
 
 func _begin_turn(player: int) -> void:
 	current_player = player
@@ -256,3 +262,13 @@ func _begin_turn(player: int) -> void:
 	dice_remaining = [false, false]
 	consecutive_doubles = 0
 	jail_attempts = 3
+
+# Store message identities so notices follow language changes without touching game state.
+func _message(key: String, values: Array = []) -> Dictionary:
+	return {"key": key, "values": values}
+
+func _set_notice(first: Dictionary, second: Dictionary = {}) -> void:
+	_notice_parts.clear()
+	for part in [first, second]:
+		if not part.is_empty():
+			_notice_parts.append(part)

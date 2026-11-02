@@ -59,7 +59,7 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.384314, 0.74902, 0.788235, 1)
 theme_override_font_sizes/font_size = 13
-text = "CYBERNETIC ARENA  /  PROYECTO UNIVERSITARIO"
+text = "MAIN_TAGLINE"
 horizontal_alignment = 1
 
 [node name="Separator" type="HSeparator" parent="Center/CardPanel/Margin/Content"]
@@ -76,7 +76,7 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../BtnQuit")
 focus_neighbor_bottom = NodePath("../BtnMultiplayer")
 mouse_default_cursor_shape = 2
-text = "Partida Local"
+text = "MAIN_LOCAL"
 
 [node name="BtnMultiplayer" type="Button" parent="Center/CardPanel/Margin/Content/ButtonsContainer"]
 unique_name_in_owner = true
@@ -85,7 +85,7 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../BtnLocal")
 focus_neighbor_bottom = NodePath("../BtnTutorial")
 mouse_default_cursor_shape = 2
-text = "Multijugador"
+text = "MAIN_MULTIPLAYER"
 
 [node name="BtnTutorial" type="Button" parent="Center/CardPanel/Margin/Content/ButtonsContainer"]
 unique_name_in_owner = true
@@ -94,7 +94,7 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../BtnMultiplayer")
 focus_neighbor_bottom = NodePath("../BtnOptions")
 mouse_default_cursor_shape = 2
-text = "Tutorial"
+text = "MAIN_TUTORIAL"
 
 [node name="BtnOptions" type="Button" parent="Center/CardPanel/Margin/Content/ButtonsContainer"]
 unique_name_in_owner = true
@@ -103,7 +103,7 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../BtnTutorial")
 focus_neighbor_bottom = NodePath("../BtnQuit")
 mouse_default_cursor_shape = 2
-text = "Opciones"
+text = "UI_OPTIONS"
 
 [node name="BtnQuit" type="Button" parent="Center/CardPanel/Margin/Content/ButtonsContainer"]
 unique_name_in_owner = true
@@ -112,12 +112,12 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../BtnOptions")
 focus_neighbor_bottom = NodePath("../BtnLocal")
 mouse_default_cursor_shape = 2
-text = "Salir"
+text = "UI_QUIT"
 
 [node name="FooterLabel" type="Label" parent="Center/CardPanel/Margin/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.35, 0.45, 0.52, 1)
 theme_override_font_sizes/font_size = 11
-text = "Godot 4.x Engine • UI Prototype"
+text = "MAIN_FOOTER"
 horizontal_alignment = 1
 
