@@ -205,6 +205,12 @@ class RoomManager:
         member.color = color
         self._broadcast_room(room)
 
+    def _on_set_name(self, member: Member, msg: dict) -> None:
+        room = self._require_room(member, "lobby")
+        name = self._clean_name(msg.get("name"))
+        member.name = name
+        self._broadcast_room(room)
+
     def _on_leave_room(self, member: Member, msg: dict) -> None:
         self._require_room(member)
         self._remove_member(member)
